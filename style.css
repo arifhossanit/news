@@ -1,0 +1,145 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+.topnav{
+    border-bottom: 1px solid #dbdbdb;
+}
+.navborder{
+    border-bottom: 1px solid #dbdbdb;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+ 
+  
+  /* The sticky class is added to the navbar with JS when it reaches its scroll position */
+  .sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding-left: 60px;
+    padding-right: 60px;
+    z-index: 50;
+    background: #ffffff;
+    transition: top 3s;
+    box-shadow: 0 6px 5px -4px #e1e1e1;
+    -webkit-transition: all 0.5s ease-out;
+    -moz-transition: all 0.5s ease-out;
+    -o-transition: all 0.5s ease-out;
+    transition: all 0.5s ease-out;
+    background: #ffffff;
+  }
+  
+  @media (max-width: 991px) {
+    .sticky {
+      position: static;
+    }
+  }
+  
+
+.image-hover {
+    overflow: hidden;
+}
+.image-hover:hover img {
+    transform: scale(1.25);
+}
+.image-hover img /*.image-hover .thumb-title*/ {
+    transition: transform 0.4s;
+}
+/* Modify image overlays */
+.card-img-overlay{
+    top:unset;
+}
+
+.thumb-title {
+    padding: 14px 24px;
+    background: #000;
+    font-size: 12px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.33;
+    letter-spacing: normal;
+    color: #ffffff;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+.image-hover:hover .thumb-title {
+    transition: transform 0.4s;
+    background: #0a62fb;
+}
+
+.video-thumb {
+    position: absolute;
+    left: 24px;
+    bottom: 24px;
+    font-size: 16px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+}
+
+.img-xs{
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+}
+.news-post-wrapper .news-post-wrapper-sm {
+    padding: 0 100px;
+}
+
+.social li a{
+    text-decoration: none;
+    font-size: 30px;
+    padding-left: 5px;
+    color: black;
+}
+.footer-horizontal-menu li a{
+    text-decoration: none;
+    color: black;
+    padding: 5px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* dashboard css */
+.admin-nav{
+    margin-left: 200px; /* Same as the width of the sidenav */
+    padding: 0px 10px;
+    transition: margin-left .5s;
+}
+.sidenav {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 12;
+    background-color: #36404e;
+    overflow-x: hidden;
+    padding-top: 20px;
+    transition: 0.5s;
+  }
+  .hidesidenav{
+    display: none;
+  }
+  .main {
+    margin-top: 60px;
+    margin-left: 200px; /* Same as the width of the sidenav */
+    font-size: 20px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+    transition: margin-left .5s;
+  }
+  @media (max-width: 768px) {
+     .main, #navexpand {
+        margin-left: 0!important;
+    } 
+    #hide {
+        width: 0px;
+    }
+    
+  }
