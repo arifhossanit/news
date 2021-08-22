@@ -17,20 +17,17 @@ function myFunction() {
     navbar.classList.add("container");
   }
 }
-// side navbar
 
+// Code for changing active link on clicking
+var btns = $("#sticky-nav .navbar-nav .nav-link");
 
-function openNav() {
-  var x=document.getElementById("on");
-  if (x.className === "topnav") {
-    document.getElementById("hide").style.width = "0px";
-    document.getElementById("expand").style.marginLeft = "0px";
-    document.getElementById("navexpand").style.marginLeft = "0px";
-    x.className = "responsive";
-  } else {
-    document.getElementById("hide").style.width = "200px";
-    document.getElementById("expand").style.marginLeft= "200px";
-    document.getElementById("navexpand").style.marginLeft= "200px";
-    x.className = "topnav";
-  }
+for (var i = 0; i < btns.length; i++) {
+    btns[i].addEventListener("click",function () {
+        var current = document.getElementsByClassName("active");
+        current[0].className = current[0].className.replace(" active", "");
+        this.className += " active";
+    });
 }
+
+
+
