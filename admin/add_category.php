@@ -11,17 +11,33 @@
                                 Add Category
                             </div>
                             <div class="card-body table-responsive">
-                              <div class="mb-3">
-                                  <label for="exampleFormControlInput1" class="form-label">Category</label>
-                                  <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Name of category">
-                              </div>
-                              <div class="mb-3">
-                                <label for="exampleFormControlTextarea1" class="form-label">Category Description</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                              </div>
-                              <div class="mb-3">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                              </div> 
+                              <?php
+                              if (isset($_GET['alert']) && $_GET['alert']=='success') {
+                                echo "<div class='alert alert-primary alert-dismissible fade show' role='alert'>
+                                        Category add successfully!
+                                        <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+                                      </div>";
+                              }elseif ( isset($_GET['alert']) && $_GET['alert']=='fail') {
+                                echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+                                        Fail to add category! Try again.
+                                        <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+                                      </div>";
+                                # code...
+                              }
+                              ?>
+                              <form action="includes/process.php" method="post">
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput1" class="form-label">Category</label>
+                                    <input type="text" name="cat_name" class="form-control" id="exampleFormControlInput1" placeholder="Name of category">
+                                </div>
+                                <div class="mb-3">
+                                  <label for="exampleFormControlTextarea1" class="form-label">Category Description</label>
+                                  <textarea name="cat_detail" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                  <input type="submit" value="Add" name="cat_add" class="btn btn-primary">
+                                </div>
+                              </form>
                             </div>
                         </div>
                     </div>
