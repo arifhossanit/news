@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 22, 2021 at 10:20 AM
+-- Generation Time: Aug 24, 2021 at 11:29 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.8
 
@@ -52,7 +52,7 @@ INSERT INTO `myadmin` (`id`, `admin_name`, `admin_mail`, `admin_pass`, `created_
 CREATE TABLE `mycategory` (
   `id` int(11) NOT NULL,
   `cat_name` varchar(30) NOT NULL,
-  `cat_detail` varchar(30) DEFAULT NULL,
+  `cat_detail` varchar(300) DEFAULT NULL,
   `created_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_date` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -82,7 +82,7 @@ CREATE TABLE `mypost` (
   `post_title` varchar(300) NOT NULL,
   `cat_id` int(11) DEFAULT NULL,
   `post_details` longtext NOT NULL,
-  `post_pic` varchar(250) DEFAULT NULL,
+  `post_pic` varchar(250) NOT NULL,
   `reporter_id` varchar(11) DEFAULT NULL,
   `post_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
@@ -151,7 +151,8 @@ ALTER TABLE `mypost`
 --
 ALTER TABLE `myreporter`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `reporter_mail` (`reporter_mail`);
+  ADD UNIQUE KEY `reporter_mail` (`reporter_mail`),
+  ADD UNIQUE KEY `reporter_mobile` (`reporter_mobile`);
 
 --
 -- Indexes for table `myuser`
@@ -174,7 +175,7 @@ ALTER TABLE `myadmin`
 -- AUTO_INCREMENT for table `mycategory`
 --
 ALTER TABLE `mycategory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `mycomments`
@@ -192,7 +193,7 @@ ALTER TABLE `mypost`
 -- AUTO_INCREMENT for table `myreporter`
 --
 ALTER TABLE `myreporter`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
 -- AUTO_INCREMENT for table `myuser`
