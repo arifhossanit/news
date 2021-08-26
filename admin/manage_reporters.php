@@ -58,7 +58,7 @@
                                             <td><?php if (!empty($data['reporter_mobile'])) echo $data['reporter_mobile']; ?></td>
                                             <td><?php if (!empty($data['created_date'])) echo $data['created_date']; ?></td>
                                             <td>
-                                                <a href="update_reporter.php?id=<?php echo $data['id']?>" class="me-3"><i class="fas fa-user-edit"></i></i></a>
+                                                <a href="update_reporter.php?rid=<?php echo $data['id']?>" class="me-3"><i class="fas fa-user-edit"></i></i></a>
                                                 <a href="includes/process.php?action=r_del&id=<?php echo $data['id']?>" class="text-danger"><i class="fas fa-trash-alt"></i></a>
                                             </td>
                                         </tr>

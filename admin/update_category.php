@@ -6,7 +6,6 @@ if (isset($_GET["id"])) {
     $result=$db_config->query($sql);
     $data=$result->fetch_assoc();
 }
-
 ?>
                 <main>
                     <div class="container-fluid px-4">
