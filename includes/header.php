@@ -1,3 +1,8 @@
+<?php
+  include_once('config.php');
+  $sql="SELECT id, cat_name FROM mycategory";
+  $rows=$db_config->query($sql);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,28 +47,17 @@
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="index.php">Latest</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Bangladesh</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">International</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Business</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Science</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Sports</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Entertainment</a>
-              </li>
+              <?php
+              while ($link=$rows->fetch_object()) {
+              echo"<li class='nav-item'>
+                    <a class='nav-link' href='page.php?cat_link=$link->id'>$link->cat_name</a>
+                  </li>";
+              }
+              ?>
             </ul>
             <form class="d-flex">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
+              <input class="form-control sinput" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success search-btn rounded-0 rounded-end" type="submit"><i class="fas fa-search"></i></button>
             </form>
           </div>
         </div>

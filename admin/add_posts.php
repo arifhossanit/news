@@ -1,8 +1,7 @@
 <?php include_once('includes/header.php');?>
 <?php
- $sql="SELECT mycategory.id AS cid,cat_name,myreporter.id AS rid,reporter_name FROM mycategory,myreporter";
- $result=$db_config->query($sql);
- $data=$result->fetch_assoc();
+ $csql="SELECT id,cat_name FROM mycategory";
+ $rsql="SELECT id,reporter_name FROM myreporter";
 ?>
                 <main>
                     <div class="container-fluid px-4">
@@ -13,7 +12,7 @@
                         <?php
                             if (isset($_GET['alert']) && $_GET['alert']=='type') {
                             echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
-                                    Extension not allowed, please choose a JPEG or PNG file!
+                                    Extension not allowed, please choose a JPEG, JPG or PNG file!
                                     <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
                                 </div>";
                             }
@@ -53,11 +52,10 @@
                                             <select class="form-select" name="post_cat" id="post_cat" aria-label="Default select example">
                                                 <option selected>Open this select menu</option>
                                                 <?php
-                                                    $result=$db_config->query($sql);
-                                                    
+                                                    $result=$db_config->query($csql);
                                                     while ($data=$result->fetch_assoc()) {
                                                         print_r($data);
-                                                        $cat_id=$data['cid'];
+                                                        $cat_id=$data['id'];
                                                         $cat_name=$data['cat_name'];
                                                         echo "<option value='$cat_id'>$cat_name</option>";
                                                     }
@@ -69,10 +67,10 @@
                                             <select class="form-select" name="post_reporter" id="post_reporter" aria-label="Default select example">
                                                 <option selected>Open this select menu</option>
                                                 <?php
-                                                    $result=$db_config->query($sql);
-                                                    while ($data=$result->fetch_assoc()) {
-                                                        $rid=$data['rid'];
-                                                        $rname=$data['reporter_name'];
+                                                    $results=$db_config->query($rsql);
+                                                    while ($row=$results->fetch_assoc()) {
+                                                        $rid=$row['id'];
+                                                        $rname=$row['reporter_name'];
                                                         echo "<option value='$rid'>$rname ($rid)</option>";
                                                         
                                                     }

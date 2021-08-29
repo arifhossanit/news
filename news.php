@@ -1,4 +1,17 @@
 <?php include_once('includes/header.php');?>
+<?php
+if (!empty($_GET['news-id'])) {
+  $news_id=$_GET['news-id'];
+  $sql="SELECT id, post_title, post_details, post_pic, post_date, updated_at FROM mypost WHERE id=$news_id";
+  $result=$db_config->query($sql);
+  $data=$result->fetch_object();
+  $post_title=$data->post_title;
+  $post_details=$data->post_details;
+  $post_pic=$data->post_pic;
+  $post_date=$data->post_date;
+}
+  
+?>
     <!-- body contant start -->
     <main class="container">
         <div class="row">
@@ -6,7 +19,7 @@
               <div class="news-post-wrapper">
                 <div class="news-post-wrapper-sm mt-5">
                   <h1 class="text-center">
-                    Use Our Compilation Of Most Famous Museums
+                    <?php echo $post_title ?>
                   </h1>
                   <div class="text-center">
                     <a href="#" class="btn btn-dark font-weight-bold mb-4">News</a>
@@ -15,74 +28,25 @@
                     class="fs-15 d-flex justify-content-center align-items-center m-0"
                   >
                     <img
-                      src="./images/dashboard/Profile_1.jpg"
+                      src="post_images/<?php echo $post_pic ?>"
                       alt=""
                       class="img-xs img-rounded me-2"
                     />
                     Oka Tomoaki | 23 February, 2018
                   </p>
-                  <p class="pt-4 pb-4">
-                    He has led a remarkable campaign, defying the traditional
-                    mainstream parties courtesy of his En Marche! movement. For
-                    many, however, the campaign has become less about backing Macron
-                    and instead about voting against Le Pen, the National Front
-                    candidate.
-                  </p>
                   <img
-                  src="./images/news/news-1.jpg"
+                  src="post_images/<?php echo $post_pic ?>"
                   alt="news"
-                  class="w-100 mb-4"/>
+                  class="w-100 my-4"/>
                 </div>
                 
                 <div class="news-post-wrapper-sm">
                   <p class="pt-4 pb-4 mb-4">
-                    He has led a remarkable campaign, defying the traditional
-                    mainstream parties courtesy of his En Marche! movement. For
-                    many, however, the campaign has become less about backing Macron
-                    and instead about voting against Le Pen, the National Front
-                    candidate.
+                    <?php echo $post_details?>
                   </p>
                 </div>
                 
-                <div class="news-post-wrapper-sm mb-4">
-                  <div class="bg-dark border-radius-6 px-4 py-3 mb-4">
-                    <p class="text-white font-weight-medium">
-                      He has led a remarkable campaign, defying the traditional
-                      mainstream parties courtesy of his En Marche! movement. For
-                      many, however, the campaign has become less about backing
-                      Macron and instead about voting against Le Pen, the National
-                      Front candidate.
-                    </p>
-                  </div>
-                  <p>
-                    He has led a remarkable campaign, defying the traditional
-                    mainstream parties courtesy of his En Marche! movement. For
-                    many, however, the campaign has become less about backing Macron
-                    and instead about voting against Le Pen, the National Front
-                    candidate.
-                  </p>
-                </div>
-                <div class="news-post-wrapper-sm mt-5">
-                    <img
-                      src="./images/news/news-5.jpg"
-                      alt="news"
-                      class="w-100 mb-4"
-                    />
-                  <p>
-                    Mauris mattis auctor cursus. Phasellus tellus tellus, imperdiet
-                    ut imperdiet eu, iaculis a sem. Donec vehicula luctus nunc in
-                    laoreet. Aliquam erat volutpat. Suspendisse vulputate porttitor
-                    mentum. Proin viverra orci a leo suscipit placerat. Sed feugiat
-                    posuere semper. Cras vitae mi erat, Vestibulum faucibus neque at
-                    lacus tristique eu ultrices ipsum mollis. Phasellus venenatis,
-                    lacus in malesuada pellentesque, platea dictumst.
-                  </p>
-                  <p class="mb-5">
-                    Proin viverra orci a leo suscipit placerat. Sed feugiat posuere
-                    semper. Cras vitae mi erat, Vestibulum faucibus neque at lacus
-                    tristique eu ultrices ipsum mollis. Phasellus venenatis, platea
-                    dictumst.
-                  </p>
+                 
                   <div class="text-center pb-5 mb-2 border-bottom">
                     <a
                       href="#"

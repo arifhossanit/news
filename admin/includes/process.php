@@ -139,7 +139,7 @@ if (isset($_POST["cat_add"])) {
     if (isset($_POST["post_submit"])) {
         extract($_POST);
 
-        if (!empty($post_title) && !empty($post_detail) && !empty($_FILES["post_img"])) {
+        if (!empty($post_title) && !empty($post_detail) && !empty($_FILES['post_img']['name'])) {
             $errors= array();
             $file_name = $_FILES['post_img']['name'];
             $file_size =$_FILES['post_img']['size'];
@@ -149,7 +149,7 @@ if (isset($_POST["cat_add"])) {
             $file_ex=end($files);
             $file_ext=strtolower($file_ex);
             
-            $extensions= array("jpeg","jpg","png", "docx", "pdf");
+            $extensions= array("jpeg","jpg","png");
             
             if(in_array($file_ext,$extensions)=== false){
                 header("Location: ../add_posts.php?alert=type");
@@ -170,6 +170,65 @@ if (isset($_POST["cat_add"])) {
             header("Location: ../add_posts.php?alert=fail");
             exit();
         }
+    }
+?>
+
+<!-- Update post in database -->
+
+<?php
+    if (isset($_POST["upost_submit"])) {
+        extract($_POST);
+
+        if (!empty($post_title) && !empty($post_detail) && !empty($_FILES['post_img']['name'])) {
+            
+            $file_name = $_FILES['post_img']['name'];
+            $file_size =$_FILES['post_img']['size'];
+            $file_tmp =$_FILES['post_img']['tmp_name'];
+            $file_type=$_FILES['post_img']['type'];
+            $files=explode('.', $file_name);
+            $file_ex=end($files);
+            $file_ext=strtolower($file_ex);
+            
+            $extensions= array("jpeg","jpg","png");
+            
+            if(in_array($file_ext,$extensions)=== false){
+                header("Location: ../update_posts.php?alert=type&id=$pid");
+                exit();
+            }elseif($file_size >= 2097152){
+                header("Location: ../update_posts.php?alert=size&id=$pid");
+                exit();
+            }else {
+                move_uploaded_file($file_tmp,"../../post_images/".$file_name);
+                $sql="UPDATE mypost SET post_title='$post_title',cat_id='$post_cat',post_details='$post_detail',post_pic='$file_name',reporter_id='$post_reporter' WHERE id=$pid";
+                $data=$db_config->query($sql);
+            }
+        }elseif (!empty($post_title) && !empty($post_detail)) {
+            $sql="UPDATE mypost SET post_title='$post_title',cat_id='$post_cat',post_details='$post_detail',reporter_id='$post_reporter' WHERE id=$pid";
+            $data=$db_config->query($sql);
+        }
+        if ($db_config->affected_rows) {
+            header("Location: ../update_posts.php?alert=success&id=$pid");
+            exit();
+        }else {
+            header("Location: ../update_posts.php?alert=fail&id=$pid");
+            exit();
+        }
+    }
+?>
+<!-- Delete reporter from database -->
+<?php
+    if (!empty($_GET["action"]) && $_GET["action"]=="post_del" && !empty($_GET["pid"])) {
+        $id=$_GET["pid"];
+        $sql="DELETE FROM mypost WHERE id='$id'";
+        $data=$db_config->query($sql);
+        if ($db_config->affected_rows) {
+            header("Location: ../manage_posts.php?alert=success");
+            exit();
+        }else {
+            header("Location: ../manage_posts.php?alert=fail");
+            exit();
+        }
+        
     }
 ?>
 <!-- admin logout from dashboard -->
