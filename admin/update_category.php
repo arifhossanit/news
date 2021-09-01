@@ -33,10 +33,7 @@ if (isset($_GET["id"])) {
                             </div>
                             <div class="card-body table-responsive">
                               <form action="includes/process.php" method="post">
-                                <div class="mb-3">
-                                    <label for="exampleFormControlInput1" class="form-label">Category No.</label>
-                                    <input type="text" name="cat_no" value="<?php if (!empty($data['id'])) echo $data['id'] ?>" class="form-control" id="exampleFormControlInput1" placeholder="Number of category">
-                                </div>
+                                <input type="hidden" name="cat_no" value="<?php if (!empty($data['id'])) echo $data['id'] ?>">
                                 <div class="mb-3">
                                     <label for="exampleFormControlInput1" class="form-label">Category</label>
                                     <input type="text" name="cat_name" value="<?php if (!empty($data['cat_name'])) echo $data['cat_name'] ?>" class="form-control" id="exampleFormControlInput1" placeholder="Name of category">

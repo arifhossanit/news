@@ -1,7 +1,7 @@
 <?php include_once('includes/header.php');?>
 
 <?php
-$sql="SELECT * FROM mycategory";
+$sql="SELECT * FROM mycategory WHERE is_active='1'";
 $result=$db_config->query($sql);
 ?>
                 <main>
@@ -36,7 +36,7 @@ $result=$db_config->query($sql);
                                             <th>Category</th>
                                             <th>Description</th>
                                             <th>Posting Date</th>
-                                            <th>Last updation Date</th>
+                                            <th>Last Update</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -53,7 +53,6 @@ $result=$db_config->query($sql);
                                     <tbody>
                                         <?php
                                         while ($data=$result->fetch_assoc()) { ?>
-                                        <?php echo $data["cat_detail"]?>
                                         <tr>
                                             <td><?php echo $data["id"]?></td>
                                             <td><?php echo $data["cat_name"]?></td>
@@ -63,6 +62,54 @@ $result=$db_config->query($sql);
                                             <td>
                                                 <a href="update_category.php?id=<?php echo $data['id']?>" class="me-3"><i class="fas fa-edit"></i></a>
                                                 <a href="includes/process.php?action=cat_del&id=<?php echo $data['id']?>" class="text-danger"><i class="fas fa-trash-alt"></i></a>
+                                            </td>
+                                        </tr>
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                List of Trash catagory
+                            </div>
+                            <div class="card-body table-responsive">
+                                <table id="datatablesSimple" class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Category</th>
+                                            <th>Description</th>
+                                            <th>Status</th>
+                                            <th>Last Update</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Category</th>
+                                            <th>Description</th>
+                                            <th>Status</th>
+                                            <th>Last updation Date</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <?php
+                                        $sql="SELECT * FROM mycategory WHERE is_active='0'";
+                                        $result=$db_config->query($sql);
+                                        while ($data=$result->fetch_assoc()) { ?>
+                                        <tr>
+                                            <td><?php echo $data["id"]?></td>
+                                            <td><?php echo $data["cat_name"]?></td>
+                                            <td><?php echo $data["cat_detail"]?></td>
+                                            <td>Inactive</td>
+                                            <td><?php echo $data["updated_date"]?></td>
+                                            <td>
+                                                <a href="includes/process.php?action=cat_store&id=<?php echo $data['id']?>" class="text-danger"><i class="fas fa-trash-alt"></i></a>
                                             </td>
                                         </tr>
                                         <?php } ?>

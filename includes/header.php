@@ -1,7 +1,26 @@
 <?php
   include_once('config.php');
-  $sql="SELECT id, cat_name FROM mycategory";
+  $sql="SELECT id, cat_name FROM mycategory WHERE is_active='1' LIMIT 6";
   $rows=$db_config->query($sql);
+?>
+<?php
+$apiKey = "abbdc193ac7c098e2f90b22a1289652f";
+$cityId = "1337179";
+$googleApiUrl = "http://api.openweathermap.org/data/2.5/weather?id=" . $cityId . "&lang=en&units=metric&APPID=" . $apiKey;
+
+$ch = curl_init();
+
+curl_setopt($ch, CURLOPT_HEADER, 0);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($ch, CURLOPT_URL, $googleApiUrl);
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+curl_setopt($ch, CURLOPT_VERBOSE, 0);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+$response = curl_exec($ch);
+
+curl_close($ch);
+$data = json_decode($response);
+$currentTime = time();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +39,11 @@
           <div class="container">
               <div class="row py-3 d-lg-flex align-items-center d-none">
                 <div class="col-2">
-                  Wed,March 4,2020
+                  <?php
+                  date_default_timezone_set("Asia/Dhaka");
+                    $mysqldate = date( 'D d M Y');
+                    echo $mysqldate;
+                  ?>
                 </div>
                 <div class="col-1">
                   30°C,London
@@ -63,3 +86,22 @@
         </div>
       </nav>
     </header>
+
+    <!-- <div class="report-container">
+        <h2><?php echo $data->name; ?> Weather Status</h2>
+        <div class="time">
+            <div><?php echo date("l g:i a", $currentTime); ?></div>
+            <div><?php echo date("jS F, Y",$currentTime); ?></div>
+            <div><?php echo ucwords($data->weather[0]->description); ?></div>
+        </div>
+        <div class="weather-forecast">
+            <img
+                src="http://openweathermap.org/img/w/<?php echo $data->weather[0]->icon; ?>.png"
+                class="weather-icon" /> <?php echo $data->main->temp_max; ?>&deg;C<span
+                class="min-temperature"><?php echo $data->main->temp_min; ?>&deg;C</span>
+        </div>
+        <div class="time">
+            <div>Humidity: <?php echo $data->main->humidity; ?> %</div>
+            <div>Wind: <?php echo $data->wind->speed; ?> km/h</div>
+        </div>
+    </div> -->

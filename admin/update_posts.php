@@ -97,6 +97,10 @@ if (isset($_GET["id"])) {
                         <label for="post_detail" class="form-label">Post Details</label>
                         <textarea name="post_detail" class="form-control" id="summernote" id="post_detail" rows="3"><?php if (!empty($post_details)) echo $post_details ?></textarea>
                     </div>
+                    <div class="mb-3">
+                        <label for="post_excerpt" class="form-label">News Excerpt</label>
+                        <textarea name="post_excerpt" class="form-control" id="post_excerpt" rows="1"> </textarea>
+                    </div>
                     <div class="input-group mb-3">
                         <input type="file" name="post_img" class="form-control" id="post_img">
                         <label class="input-group-text" for="post_img">Feature Image</label>

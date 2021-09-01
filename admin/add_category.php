@@ -26,10 +26,7 @@
                               }
                               ?>
                               <form action="includes/process.php" method="post">
-                                <div class="mb-3">
-                                    <label for="exampleFormControlInput1" class="form-label">Category No.</label>
-                                    <input type="text" name="cat_no" class="form-control" id="exampleFormControlInput1" placeholder="Number of category">
-                                </div>
+                                <input type="hidden" name="status" value="1">
                                 <div class="mb-3">
                                     <label for="exampleFormControlInput1" class="form-label">Category</label>
                                     <input type="text" name="cat_name" class="form-control" id="exampleFormControlInput1" placeholder="Name of category">

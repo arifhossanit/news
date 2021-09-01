@@ -2,7 +2,8 @@
       <div class="row">
         <div class="col-sm-12">
           <div class="d-flex justify-content-between">
-            <img src="images/logo.svg" class="footer-logo" alt="" />
+            <h1 class="footer-logo fw-bold">NEWS ROOM</h1>
+            <!-- <img src="images/logo.svg"  alt="" /> -->
 
             <div class="d-flex justify-content-end footer-social align-items-center">
               <h5 class="fw-bold me-3 d-none d-lg-flex">Follow on</h5>
@@ -52,7 +53,7 @@
               <li><a href="#">Sitemap</a></li>
             </ul>
             <p class="font-weight-medium">
-              © 2021 <a href="https://www.bootstrapdash.com/" target="_blank" class="text-dark text-decoration-none">@ Nwesline</a>, Inc.All Rights Reserved.
+              © 2021 <a href="https://www.bootstrapdash.com/" target="_blank" class="text-dark text-decoration-none">@ NEWSROOM</a>, Inc.All Rights Reserved.
             </p>
           </div>
         </div>

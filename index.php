@@ -1,35 +1,42 @@
 <?php include_once('includes/header.php');?>
+
     <main class="container">
       <!-- carousel started -->
-      <div class="row my-5">
-          <div id="carouselExampleCaptions" class="carousel slide carousel-fade col-lg-8" data-bs-ride="carousel">
+      <div class="row mt-5 mb-3">
+          <div id="carouselExampleCaptions" class="carousel slide carousel-fade col-xl-8" data-bs-ride="carousel">
               <div class="carousel-indicators">
               <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
               <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
               <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
+              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" aria-label="Slide 5"></button>
               </div>
               <div class="carousel-inner">
-              <div class="carousel-item active">
-                  <img src="images/dashboard/banner.jpg" class="d-block w-100" alt="...">
-                  <div class="carousel-caption d-none d-md-block">
-                  <h5>First slide label</h5>
-                  <p>Some representative placeholder content for the first slide.</p>
-                  </div>
-              </div>
-              <div class="carousel-item">
-                  <img src="images/dashboard/banner_1.jpg" class="d-block w-100" alt="...">
-                  <div class="carousel-caption d-none d-md-block">
-                  <h5>Second slide label</h5>
-                  <p>Some representative placeholder content for the second slide.</p>
-                  </div>
-              </div>
-              <div class="carousel-item">
-                  <img src="images/dashboard/banner_2.jpg" class="d-block w-100" alt="...">
-                  <div class="carousel-caption d-none d-md-block">
-                  <h5>Third slide label</h5>
-                  <p>Some representative placeholder content for the third slide.</p>
-                  </div>
-              </div>
+                <?php
+                  $sql="SELECT id, post_title, post_details, post_pic, post_date, updated_at FROM mypost ORDER BY id DESC";
+                  $result=$db_config->query($sql);
+                  $data=$result->fetch_object();
+                ?>
+                <div class="carousel-item active">
+                    <img src="post_images/<?php echo $data->post_pic; ?>" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                      <h4 class="fw-bold"><?php echo $data->post_title; ?></h4>
+                    </div>
+                    <a href="news.php?news-id=<?php echo $data->id ?>" class="stretched-link"></a>
+                </div>
+                <?php
+                  $sql="SELECT id, post_title, post_details, post_pic, post_date, updated_at FROM mypost ORDER BY id DESC LIMIT 1,4";
+                  $result=$db_config->query($sql);
+                  while ($data=$result->fetch_object()) {
+                ?>
+                <div class="carousel-item">
+                    <img src="post_images/<?php echo $data->post_pic; ?>" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                      <h4 class="fw-bold"><?php echo $data->post_title; ?></h4>
+                    </div>
+                    <a href="news.php?news-id=<?php echo $data->id ?>" class="stretched-link"></a>
+                </div>
+                <?php } ?>
               </div>
               <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -40,116 +47,126 @@
               <span class="visually-hidden">Next</span>
               </button>
           </div>
-          <div class="col-lg-4">
+          
+          <div class="col-xl-4 d-none d-xl-block">
               <div class="card mb-3 px-2" style="max-width: 540px;">
-                  <div class="card-body">
+                  <div class="card-title pt-2">
                       <h5 class="card-title text-center border-bottom">TRANDING STORIES</h5>
                   </div>
+                  <?php
+                    $sql="SELECT id, post_title, post_details, post_pic, post_date, updated_at FROM mypost ORDER BY id DESC LIMIT 5,5";
+                    $result=$db_config->query($sql);
+                    while ($data=$result->fetch_object()) {
+                      $phpdate = strtotime( $data->post_date );
+                      $mysqldate = date( 'd M Y, H:i', $phpdate );
+                  ?>
                   <div class="row g-0 border-bottom">
                     <div class="col-md-8">
-                        <p class="card-text">This is a wider card with supporting text below. <br><small class="text-muted">3 mins ago</small></p>
-                        
+                      <a href="news.php?news-id=<?php echo $data->id ?>" class="text-decoration-none text-dark hover-link">
+                        <p class="card-text "><?php echo substr($data->post_title,0,55).'...';?> 
+                      </a>
+                      <br><small class="text-muted"><?php echo $mysqldate; ?></small></p>
                     </div>
                     <div class="col-md-4">
-                      <img src="images/dashboard/Profile_1.jpg" class="img-fluid p-2" alt="images/dashboard/Profile_2.jpg">
+                      <img src="post_images/<?php echo $data->post_pic; ?>" class="img-fluid p-2" alt="News picture">
                     </div>
                   </div>
-                  <div class="row g-0 border-bottom">
-                      <div class="col-md-8">
-                          <p class="card-text">This is a wider card with supporting text below. <br><small class="text-muted">3 mins ago</small></p>
-                          
-                      </div>
-                      <div class="col-md-4">
-                        <img src="images/dashboard/Profile_2.jpg" class="img-fluid p-2" alt="...">
-                      </div>
-                    </div>
-                    <div class="row g-0">
-                      <div class="col-md-8">
-                          <p class="card-text">This is a wider card with supporting text below. <br> <small class="text-muted">3 mins ago</small></p>
-                          
-                      </div>
-                      <div class="col-md-4">
-                        <img src="images/dashboard/Profile_3.jpg" class="img-fluid p-2 " alt="...">
-                      </div>
-                    </div>
+                  <?php } ?>
               </div>
           </div>
       </div>
-      <!-- World News -->
-      <section>
-        <h1>World news</h1>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
-          
-          <div class="col">
-            <div class="card h-100">
-              <div class="image-hover">
-              <img src="images/dashboard/travel.jpg" class="card-img-top" alt="...">
+      <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+      
+        <?php
+          $sql="SELECT id, post_title, post_details, post_pic, post_date, updated_at FROM mypost ORDER BY id DESC LIMIT 10,3";
+          $result=$db_config->query($sql);
+          while ($data=$result->fetch_object()) {
+            $phpdate = strtotime( $data->post_date );
+            $mysqldate = date( 'd M Y, H:i', $phpdate );
+        ?>
+        <div class="col">
+          <div class=" card rounded-0 h-100" style="max-width: 540px;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="post_images/<?php echo $data->post_pic; ?>" class="img-fluid ps-1 pt-4" alt="News picture">
               </div>
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below.</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">Last updated 3 mins ago</small>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card h-100">
-              <div class="image-hover">
-                  <img src="images/dashboard/news.jpg" class="card-img-top" alt="...">
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">Last updated 3 mins ago</small>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card h-100">
-              <div class="image-hover">
-                  <img src="images/dashboard/art.jpg" class="card-img-top" alt="...">
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">Last updated 3 mins ago</small>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-              <div class="card h-100 image-hover">
-                <div class="image-hover">
-                  <img src="images/dashboard/business.jpg" class="card-img-top" alt="...">
-                </div>
+              <div class="col-md-8">
                 <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                </div>
-                <div class="card-footer">
-                  <small class="text-muted">Last updated 3 mins ago</small>
+                  <h5 class="card-title"><?php echo $data->post_title; ?></h5>
+                  <p class="card-text"><small class="text-muted"><?php echo $mysqldate; ?></small></p>
+                  <a href="news.php?news-id=<?php echo $data->id ?>" class="stretched-link"></a>
                 </div>
               </div>
+            </div>
           </div>
+        </div>
+        <?php } ?>
+      </div>
+      <!-- International News -->
+      
+      <section>
+        <?php
+          $csql="SELECT id, cat_name FROM `mycategory` LIMIT 1";
+          $cresult=$db_config->query($csql);
+          $cdata=$cresult->fetch_object();
+          $cid=$cdata->id;
+          $cat_name=$cdata->cat_name;
+        ?>
+        <h4 class="fw-bold"><?php echo $cat_name; ?><span class="text-danger">></span></h4>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
+          <?php
+            $sql="SELECT id, post_title, post_excerpt, cat_id, post_details, post_pic, post_date, updated_at FROM mypost WHERE cat_id='$cid' ORDER BY id DESC LIMIT 4";
+            $result=$db_config->query($sql);
+            while ($data=$result->fetch_object()) {
+              $phpdate = strtotime( $data->post_date );
+              $mysqldate = date( 'd M Y, H:i', $phpdate );
+          ?>
+          <div class="col">
+            <div class="card h-100">
+              <div class="image-hover">
+              <img src="post_images/<?php echo $data->post_pic; ?>" class="card-img-top" alt="News picture">
+              </div>
+              <div class="card-body">
+                <h5 class="card-title"><?php echo $data->post_title; ?></h5>
+                <p class="card-text"><?php echo substr($data->post_excerpt,0,120).'...'; ?></p>
+                <a href="news.php?news-id=<?php echo $data->id ?>" class="stretched-link"></a>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted"><?php echo $mysqldate; ?></small>
+              </div>
+            </div>
+          </div>
+          <?php } ?>
         </div>
       </section>
       <!-- Popular News -->
       <section class="my-5">
-        <h1>Popular News</h1>
+      <?php
+        $csql="SELECT id, cat_name FROM `mycategory` LIMIT 1,1";
+        $cresult=$db_config->query($csql);
+        $cdata=$cresult->fetch_object();
+        $cid=$cdata->id;
+        $cat_name=$cdata->cat_name;
+      ?>
+        <h4 class="fw-bold"><?php echo $cat_name; ?><span class="text-danger">></span></h4>
         <div class="row" style="height: 300px;">
+          <?php
+            $sql="SELECT id, post_title, post_excerpt, post_details, post_pic, post_date, updated_at FROM mypost ORDER BY id DESC LIMIT 14,1";
+            $result=$db_config->query($sql);
+            while ($data=$result->fetch_object()) {
+              $phpdate = strtotime( $data->post_date );
+              $mysqldate = date( 'd M Y, H:i', $phpdate );
+          ?>
           <div class="card bg-dark text-white col-lg-6 h-100 p-0">
-            <img src="images/dashboard/business.jpg" class="card-img h-100" alt="...">
+            <img src="post_images/<?php echo $data->post_pic; ?>" class="card-img h-100" alt="News picture">
             <div class="card-img-overlay">
-              <h5 class="card-title align-bottom">Card title</h5>
-              <p class="card-text align-bottom">This is a wider card with supporting text below.</p>
-              <p class="card-text align-bottom">Last updated 3 mins ago</p>
+              <h5 class="card-title align-bottom"><?php echo $data->post_title; ?></h5>
+              <p class="card-text align-bottom"><?php echo $mysqldate; ?></p>
             </div>
+            <a href="news.php?news-id=<?php echo $data->id ?>" class="stretched-link"></a>
           </div>
+          <?php } ?>
+          
           <div class="col-lg-3 h-100">
             <div class="card h-100">
               <img src="..." class="card-img-top" alt="...">
@@ -264,7 +281,7 @@
             <div class="card mb-3" style="max-width: 540px;">
               <div class="row g-0">
                 <div class="col-md-4">
-                  <img src="..." class="img-fluid rounded-start" alt="...">
+                  <img src="images/New Project.jpg" class="img-fluid rounded-start" alt="...">
                 </div>
                 <div class="col-md-8">
                   <div class="card-body">

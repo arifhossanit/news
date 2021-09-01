@@ -14,6 +14,18 @@ if (isset($_GET["rid"])) {
                             <li class="breadcrumb-item active">Dashboard</li>
                         </ol>
                         <?php
+                          if (isset($_GET['alert']) && $_GET['alert']=='type') {
+                          echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+                                  Extension not allowed, please choose a JPEG, JPG or PNG file!
+                                  <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+                              </div>";
+                          }
+                          if(isset($_GET['alert']) && $_GET['alert']=='size') {
+                          echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+                                  File size must be under 2 MB!
+                                  <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+                              </div>";
+                          }
                           if (isset($_GET['alert']) && $_GET['alert']=='success') {
                           echo "<div class='alert alert-primary alert-dismissible fade show' role='alert'>
                                   Reporter updated successfully!
@@ -32,7 +44,7 @@ if (isset($_GET["rid"])) {
                                 Edit Reporter
                             </div>
                             <div class="card-body table-responsive">
-                              <form action="includes/process.php" method="post">
+                              <form action="includes/process.php" method="post" enctype="multipart/form-data">
                                 <div class="mb-3">
                                     <label for="exampleId" class="form-label">Reporter Id</label>
                                     <input type="text" name="rid" value="<?php if (!empty($data['id'])) echo $data['id'] ?>" class="form-control" id="exampleId" placeholder="101">
@@ -48,6 +60,10 @@ if (isset($_GET["rid"])) {
                                 <div class="mb-3">
                                   <label for="examplePhone" class="form-label">Phone Number</label>
                                   <input type="text" name="rmobile" value="<?php if (!empty($data['reporter_mobile'])) echo $data['reporter_mobile'] ?>" class="form-control" id="examplePhone" placeholder="01xxxxxxxxxx">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <input type="file" name="rimg" class="form-control" id="rimg">
+                                    <label class="input-group-text" for="rimg">Upload Image</label>
                                 </div>
                                 <div class="mb-3">
                                   <input type="submit" name="ersubmit" value="Update" class="btn btn-primary">

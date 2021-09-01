@@ -5,7 +5,7 @@
 ?>
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">New Post</h1>
+                        <h1 class="mt-4">Add News</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Dashboard</li>
                         </ol>
@@ -38,12 +38,12 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Add Post
+                                Add News
                             </div>
                             <div class="card-body table-responsive">
                                 <form action="includes/process.php" method="post" enctype="multipart/form-data">
                                     <div class="mb-3">
-                                        <label for="post_title" class="form-label">Post Title</label>
+                                        <label for="post_title" class="form-label">News Title</label>
                                         <input type="text" name="post_title" class="form-control" id="post_title" placeholder="Name of category">
                                     </div>
                                     <div class="row">
@@ -79,8 +79,12 @@
                                         </div>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="post_detail" class="form-label">Post Details</label>
-                                        <textarea name="post_detail" class="form-control" id="summernote" id="post_detail" rows="3"></textarea>
+                                        <label for="post_detail" class="form-label">News Details</label>
+                                        <textarea name="post_detail" class="form-control" id="summernote" id="post_detail" rows="5"></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="post_excerpt" class="form-label">News Excerpt</label>
+                                        <textarea name="post_excerpt" class="form-control" id="post_excerpt" rows="1"> </textarea>
                                     </div>
                                     <div class="input-group mb-3">
                                         <input type="file" name="post_img" class="form-control" id="post_img">

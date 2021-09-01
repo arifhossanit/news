@@ -1,3 +1,11 @@
+$(function(){
+  $('.hover-link').hover(function () {
+    $(this).addClass("black-link");
+    }, function () {
+      $('.hover-link').removeClass("black-link");
+    }
+  );
+})
 // When the user scrolls the page, execute myFunction
 window.onscroll = function() {myFunction()};
 
@@ -28,6 +36,8 @@ for (var i = 0; i < btns.length; i++) {
         this.className += " active";
     });
 }
+
+
 
 
 

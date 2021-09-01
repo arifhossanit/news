@@ -2,11 +2,12 @@
     session_start();
     // db_config->real_escape_string()
     function filter($data)
-    {
+    {   
+        global $db_config;
         $data = trim($data);
         $data = htmlspecialchars($data);
         $data = stripcslashes($data);
-    
+        $data = $db_config->real_escape_string($data);
         return $data;
     }
 ?>
@@ -18,6 +19,7 @@ if (isset($_POST["adminlogin"]) && $_POST["adminlogin"] =="Sign In") {
     $adminpass=md5($pass);
     $sql="SELECT admin_mail, admin_pass FROM myadmin WHERE admin_mail='$email' AND admin_pass='$adminpass'";
     $data=$db_config->query($sql);
+
     if ($data->num_rows > 0) {
         $_SESSION["mail"] = "admin";
         header("Location: ../dashboard.php");
@@ -28,15 +30,37 @@ if (isset($_POST["adminlogin"]) && $_POST["adminlogin"] =="Sign In") {
     }
 }
 ?>
+<!-- admin account setting -->
+<?php
+    if (isset($_POST["admin_submit"])) {
+        extract($_POST);
+        $admin_name= filter($admin_name);
+        $admin_mail= filter($admin_mail);
+        $admin_pass= md5($admin_pass);
+        $admin_new_pass= md5($admin_new_pass);
+        if (!empty($_POST["admin_name"]) && !empty($_POST["admin_mail"]) && !empty($_POST["admin_new_pass"])) {
+            $sql="UPDATE myadmin SET admin_name='$admin_name', admin_mail='$admin_mail', admin_pass='$admin_new_pass' WHERE id=$aid AND admin_pass='$admin_pass'";
+            $db_config->query($sql);
+        }
+        
+        if ($db_config->affected_rows) {
+            header("Location: ../account_setting.php?alert=success");
+            exit();
+        }else {
+            header("Location: ../account_setting.php?alert=fail");
+            exit();
+        }
+    }
+?>
 <!-- catagory added in database -->
 <?php
 if (isset($_POST["cat_add"])) {
     extract($_POST);
-    $id=filter($cat_no);
     $name=filter($cat_name);
     $detail=filter($cat_detail);
+    $status=filter($status);
     if (!empty($_POST["cat_name"])) {
-        $sql="INSERT INTO mycategory (id,cat_name,cat_detail) VALUES ('$id','$name','$detail')";
+        $sql="INSERT INTO mycategory (cat_name,cat_detail,is_active) VALUES ('$name','$detail','$status')";
         $data=$db_config->query($sql);
     }
     
@@ -71,7 +95,7 @@ if (isset($_POST["cat_add"])) {
 <?php
     if (!empty($_GET["action"])  && !empty($_GET["id"]) && $_GET["action"]=="cat_del") {
         $id=$_GET["id"];
-        $sql="DELETE FROM mycategory WHERE id='$id'";
+        $sql="UPDATE mycategory SET is_active='0' WHERE id='$id'";
         $data=$db_config->query($sql);
         if ($db_config->affected_rows) {
             header("Location: ../manage_category.php?alert=success");
@@ -83,13 +107,46 @@ if (isset($_POST["cat_add"])) {
         
     }
 ?>
+<!-- Restore category from database -->
+<?php
+    if (!empty($_GET["action"])  && !empty($_GET["id"]) && $_GET["action"]=="cat_store") {
+        $id=$_GET["id"];
+        $sql="UPDATE mycategory SET is_active='1' WHERE id='$id'";
+        $data=$db_config->query($sql);
+        if ($db_config->affected_rows) {
+            header("Location: ../manage_category.php?alert=store_success");
+            exit();
+        }else {
+            header("Location: ../manage_category.php?alert=store_fail");
+            exit();
+        }
+        
+    }
+?>
 <!-- Added reporter in databse -->
 <?php
     if (isset($_POST['rsubmit'])) {
         extract($_POST);
-        if (!empty($_POST['rname']) && !empty($_POST['rmail']) && !empty($_POST['rmobile'])) {
-            $sql="INSERT INTO myreporter (id,reporter_name,reporter_mail,reporter_mobile) VALUES ('$rid','$rname','$rmail','$rmobile')";
+        $file_name = $_FILES['rimg']['name'];
+        $file_size =$_FILES['rimg']['size'];
+        $file_tmp =$_FILES['rimg']['tmp_name'];
+        $file_type=$_FILES['rimg']['type'];
+        $files=explode('.', $file_name);
+        $file_ex=end($files);
+        $file_ext=strtolower($file_ex);
+        
+        $extensions= array("jpeg","jpg","png");
+        
+        if(in_array($file_ext,$extensions)=== false){
+            header("Location: ../add_reporter.php?alert=type");
+            exit();
+        }elseif($file_size >= 2097152){
+            header("Location: ../add_reporter.php?alert=size");
+            exit();
+        }elseif(!empty($_POST['rname']) && !empty($_POST['rmail']) && !empty($_POST['rmobile'])) {
+            $sql="INSERT INTO myreporter (id,reporter_name,reporter_mail,reporter_mobile,reporter_img) VALUES ('$rid','$rname','$rmail','$rmobile','$rimg')";
             $data=$db_config->query($sql);
+            move_uploaded_file($file_tmp,"../../reporter_img/".$file_name);
         }
         if ($db_config->affected_rows) {
             header("Location: ../add_reporter.php?alert=success");
@@ -100,11 +157,34 @@ if (isset($_POST["cat_add"])) {
         }
     }
 ?>
-<!-- catagory update in database -->
+<!-- reporter update in database -->
 <?php
     if (isset($_POST['ersubmit'])) {
         extract($_POST);
-        if (!empty($_POST['rname']) && !empty($_POST['rmail']) && !empty($_POST['rmobile'])) {
+        if (!empty($_FILES['rimg']['name']) && !empty($_POST['rname']) && !empty($_POST['rmail']) && !empty($_POST['rmobile'])) {
+        
+            $file_name = $_FILES['rimg']['name'];
+            $file_size =$_FILES['rimg']['size'];
+            $file_tmp =$_FILES['rimg']['tmp_name'];
+            $file_type=$_FILES['rimg']['type'];
+            $files=explode('.', $file_name);
+            $file_ex=end($files);
+            $file_ext=strtolower($file_ex);
+            
+            $extensions= array("jpeg","jpg","png");
+            
+            if(in_array($file_ext,$extensions)=== false){
+                header("Location: ../update_reporter.php?alert=type&rid=$rid");
+                exit();
+            }elseif($file_size >= 2097152){
+                header("Location: ../update_reporter.php?alert=size&rid=$rid");
+                exit();
+            }else{
+                $sql="UPDATE myreporter SET id='$rid',reporter_name='$rname',reporter_mail='$rmail',reporter_mobile='$rmobile',reporter_img='$file_name' WHERE id='$rid'";
+                $data=$db_config->query($sql);
+                move_uploaded_file($file_tmp,"../../reporter_img/".$file_name);
+            }
+        }elseif(!empty($_POST['rname']) && !empty($_POST['rmail']) && !empty($_POST['rmobile'])) {
             $sql="UPDATE myreporter SET id='$rid',reporter_name='$rname',reporter_mail='$rmail',reporter_mobile='$rmobile' WHERE id='$rid'";
             $data=$db_config->query($sql);
         }
@@ -138,8 +218,12 @@ if (isset($_POST["cat_add"])) {
 <?php
     if (isset($_POST["post_submit"])) {
         extract($_POST);
+        $post_title=filter($post_title);
+        $post_detail=filter($post_detail);
+        $post_excerpt=filter($post_excerpt);
+        $file_name=filter($file_name);
 
-        if (!empty($post_title) && !empty($post_detail) && !empty($_FILES['post_img']['name'])) {
+        if (!empty($post_title) && !empty($post_detail) && !empty($post_excerpt) && !empty($_FILES['post_img']['name'])) {
             $errors= array();
             $file_name = $_FILES['post_img']['name'];
             $file_size =$_FILES['post_img']['size'];
@@ -158,9 +242,9 @@ if (isset($_POST["cat_add"])) {
                 header("Location: ../add_posts.php?alert=size");
                 exit();
             }else {
-                move_uploaded_file($file_tmp,"../../post_images/".$file_name);
-                $sql="INSERT INTO mypost (post_title,cat_id,post_details,post_pic,reporter_id) VALUES ('$post_title','$post_cat','$post_detail','$file_name','$post_reporter')";
+                $sql="INSERT INTO mypost (post_title,post_excerpt,cat_id,post_details,post_pic,reporter_id) VALUES ('$post_title','$post_excerpt','$post_cat','$post_detail','$file_name','$post_reporter')";
                 $data=$db_config->query($sql);
+                move_uploaded_file($file_tmp,"../../post_images/".$file_name);
             }
         }
         if ($db_config->affected_rows) {
@@ -178,8 +262,12 @@ if (isset($_POST["cat_add"])) {
 <?php
     if (isset($_POST["upost_submit"])) {
         extract($_POST);
-
-        if (!empty($post_title) && !empty($post_detail) && !empty($_FILES['post_img']['name'])) {
+        $post_title=filter($post_title);
+        $post_detail=filter($post_detail);
+        $post_excerpt=filter($post_excerpt);
+        $file_name=filter($file_name);
+        
+        if (!empty($post_title) && !empty($post_excerpt) && !empty($post_detail) && !empty($_FILES['post_img']['name'])) {
             
             $file_name = $_FILES['post_img']['name'];
             $file_size =$_FILES['post_img']['size'];
@@ -198,12 +286,12 @@ if (isset($_POST["cat_add"])) {
                 header("Location: ../update_posts.php?alert=size&id=$pid");
                 exit();
             }else {
-                move_uploaded_file($file_tmp,"../../post_images/".$file_name);
-                $sql="UPDATE mypost SET post_title='$post_title',cat_id='$post_cat',post_details='$post_detail',post_pic='$file_name',reporter_id='$post_reporter' WHERE id=$pid";
+                $sql="UPDATE mypost SET post_title='$post_title',post_excerpt='$post_excerpt',cat_id='$post_cat',post_details='$post_detail',post_pic='$file_name',reporter_id='$post_reporter' WHERE id=$pid";
                 $data=$db_config->query($sql);
+                move_uploaded_file($file_tmp,"../../post_images/".$file_name);
             }
-        }elseif (!empty($post_title) && !empty($post_detail)) {
-            $sql="UPDATE mypost SET post_title='$post_title',cat_id='$post_cat',post_details='$post_detail',reporter_id='$post_reporter' WHERE id=$pid";
+        }elseif (!empty($post_title) && !empty($post_detail) && !empty($post_excerpt)) {
+            $sql="UPDATE mypost SET post_title='$post_title',post_excerpt='$post_excerpt',cat_id='$post_cat',post_details='$post_detail',reporter_id='$post_reporter' WHERE id=$pid";
             $data=$db_config->query($sql);
         }
         if ($db_config->affected_rows) {

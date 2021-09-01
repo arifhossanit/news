@@ -151,7 +151,7 @@
   .img-figure
   {
     display: block;
-    width: 100%;
+    width: 99.99%;
     position: relative;
     height: 0;
     padding: 56.25% 0 0 0;
@@ -171,3 +171,39 @@
     bottom: 0;
     margin: auto;
   }
+  .black-link{
+    text-decoration: underline black!important;
+  }
+  /* weather update */
+ 
+.report-container {
+  font-family: Arial;
+  font-size: 0.95em;
+  color: #929292;
+  border: #E0E0E0 1px solid;
+  padding: 20px 40px 40px 40px;
+  border-radius: 2px;
+  width: 550px;
+  margin: 0 auto;
+}
+
+.weather-icon {
+  vertical-align: middle;
+  margin-right: 20px;
+}
+
+.weather-forecast {
+  color: #212121;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 20px 0px;
+}
+
+span.min-temperature {
+  margin-left: 15px;
+  color: #929292;
+}
+
+.time {
+  line-height: 25px;
+}
