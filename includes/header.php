@@ -4,8 +4,8 @@
   $rows=$db_config->query($sql);
 ?>
 <?php
-$apiKey = "";
-$cityId = "1337179";
+$apiKey = "api key";
+$cityId = "city id";
 $googleApiUrl = "http://api.openweathermap.org/data/2.5/weather?id=" . $cityId . "&lang=en&units=metric&APPID=" . $apiKey;
 
 $ch = curl_init();
