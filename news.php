@@ -42,7 +42,7 @@ if (!empty($_GET['news-id'])) {
                 
                 <div class="news-post-wrapper-sm">
                   <p class="pt-4 pb-4 mb-4">
-                    <?php echo $post_details?>
+                    <?php echo html_entity_decode($post_details); ?>
                   </p>
                 </div>
                 

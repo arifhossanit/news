@@ -84,7 +84,7 @@ $result=$db_config->query($sql);
                                             <th>Description</th>
                                             <th>Status</th>
                                             <th>Last Update</th>
-                                            <th>Action</th>
+                                            <th>Restore</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -94,7 +94,7 @@ $result=$db_config->query($sql);
                                             <th>Description</th>
                                             <th>Status</th>
                                             <th>Last updation Date</th>
-                                            <th>Action</th>
+                                            <th>Restore</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -108,8 +108,8 @@ $result=$db_config->query($sql);
                                             <td><?php echo $data["cat_detail"]?></td>
                                             <td>Inactive</td>
                                             <td><?php echo $data["updated_date"]?></td>
-                                            <td>
-                                                <a href="includes/process.php?action=cat_store&id=<?php echo $data['id']?>" class="text-danger"><i class="fas fa-trash-alt"></i></a>
+                                            <td class="text-center">
+                                                <a href="includes/process.php?action=cat_store&id=<?php echo $data['id']?>" class="text-success fs-5"><i class="fas fa-trash-restore"></i></a>
                                             </td>
                                         </tr>
                                         <?php } ?>

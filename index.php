@@ -2,7 +2,7 @@
 
     <main class="container">
       <!-- carousel started -->
-      <div class="row mt-5 mb-3">
+      <div class="row g-3 mt-5 mb-2">
           <div id="carouselExampleCaptions" class="carousel slide carousel-fade col-xl-8" data-bs-ride="carousel">
               <div class="carousel-indicators">
               <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -63,7 +63,7 @@
                   <div class="row g-0 border-bottom">
                     <div class="col-md-8">
                       <a href="news.php?news-id=<?php echo $data->id ?>" class="text-decoration-none text-dark hover-link">
-                        <p class="card-text "><?php echo substr($data->post_title,0,55).'...';?> 
+                        <p class="card-text "><?php echo substr($data->post_title,0,48).'...';?> 
                       </a>
                       <br><small class="text-muted"><?php echo $mysqldate; ?></small></p>
                     </div>
@@ -75,8 +75,8 @@
               </div>
           </div>
       </div>
-      <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
-      
+
+      <div class="row row-cols-1 row-cols-md-3 g-3 mb-5">
         <?php
           $sql="SELECT id, post_title, post_details, post_pic, post_date, updated_at FROM mypost ORDER BY id DESC LIMIT 10,3";
           $result=$db_config->query($sql);
@@ -102,7 +102,7 @@
         </div>
         <?php } ?>
       </div>
-      <!-- International News -->
+      <!-- Bangladesh News -->
       
       <section>
         <?php
@@ -113,7 +113,7 @@
           $cat_name=$cdata->cat_name;
         ?>
         <h4 class="fw-bold"><?php echo $cat_name; ?><span class="text-danger">></span></h4>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-3">
           <?php
             $sql="SELECT id, post_title, post_excerpt, cat_id, post_details, post_pic, post_date, updated_at FROM mypost WHERE cat_id='$cid' ORDER BY id DESC LIMIT 4";
             $result=$db_config->query($sql);
@@ -139,7 +139,8 @@
           <?php } ?>
         </div>
       </section>
-      <!-- Popular News -->
+
+      <!-- Business News -->
       <section class="my-5">
       <?php
         $csql="SELECT id, cat_name FROM `mycategory` LIMIT 1,1";
@@ -149,227 +150,157 @@
         $cat_name=$cdata->cat_name;
       ?>
         <h4 class="fw-bold"><?php echo $cat_name; ?><span class="text-danger">></span></h4>
-        <div class="row" style="height: 300px;">
+        <div class="row g-2">
           <?php
-            $sql="SELECT id, post_title, post_excerpt, post_details, post_pic, post_date, updated_at FROM mypost ORDER BY id DESC LIMIT 14,1";
+            $sql="SELECT id, post_title, post_excerpt, cat_id, post_pic, reporter_id, post_date, updated_at FROM mypost WHERE cat_id='$cid' ORDER BY id DESC";
+            $result=$db_config->query($sql);
+            $data=$result->fetch_object();
+            $phpdate = strtotime( $data->post_date );
+            $mysqldate = date( 'd M Y, H:i', $phpdate );
+          ?>
+          <div class="col-lg-6">
+            <div class="card bg-dark text-white h-100">
+              <img src="post_images/<?php echo $data->post_pic; ?>" class="card-img h-100" alt="News picture">
+              <div class="card-img-overlay">
+                <h5 class="card-title align-bottom"><?php echo $data->post_title; ?></h5>
+                <p class="card-text align-bottom"><?php echo $mysqldate; ?></p>
+              </div>
+              <a href="news.php?news-id=<?php echo $data->id ?>" class="stretched-link"></a>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="row row-cols-1 row-cols-sm-2 g-2">
+              <?php
+                $sql="SELECT id, post_title, post_excerpt, cat_id, post_pic, reporter_id, post_date, updated_at FROM mypost WHERE cat_id='$cid' ORDER BY id DESC LIMIT 1,2";
+                $result=$db_config->query($sql);
+                while ($data=$result->fetch_object()) {
+                  $phpdate = strtotime( $data->post_date );
+                  $mysqldate = date( 'd M Y, H:i', $phpdate );
+              ?>
+                <div class="col">
+                  <div class="card h-100">
+                    <img src="post_images/<?php echo $data->post_pic; ?>" class="card-img-top" alt="News Image">
+                    <div class="card-body">
+                      <h5 class="card-title"><?php echo substr($data->post_title,0,48).'..'; ?></h5>
+                      <p class="card-text mb-0"><?php echo substr($data->post_excerpt,0,100).'...'; ?></p>
+                      <small class="text-muted"><?php echo $mysqldate; ?></small>
+                      <a href="news.php?news-id=<?php echo $data->id ?>" class="stretched-link"></a>
+                    </div>
+                  </div>
+                </div>
+              <?php } ?>
+            </div>
+          </div>
+        </div>
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-2 mt-1">
+          <?php
+            $sql="SELECT id, post_title, post_excerpt, cat_id, post_pic, reporter_id, post_date, updated_at FROM mypost WHERE cat_id='$cid' ORDER BY id DESC LIMIT 3,4";
             $result=$db_config->query($sql);
             while ($data=$result->fetch_object()) {
               $phpdate = strtotime( $data->post_date );
               $mysqldate = date( 'd M Y, H:i', $phpdate );
           ?>
-          <div class="card bg-dark text-white col-lg-6 h-100 p-0">
-            <img src="post_images/<?php echo $data->post_pic; ?>" class="card-img h-100" alt="News picture">
-            <div class="card-img-overlay">
-              <h5 class="card-title align-bottom"><?php echo $data->post_title; ?></h5>
-              <p class="card-text align-bottom"><?php echo $mysqldate; ?></p>
+            <div class="col">
+              <div class="card mb-3" style="max-width: 540px;">
+                <div class="row p-2">
+                  <div class="col-md-8 pe-0">
+                    <div class="card-body p-0">
+                      <h6 class="card-title"><?php echo substr($data->post_title,0,48).'..'; ?></h6>
+                      <p class="card-text"><small class="text-muted"><?php echo $mysqldate; ?></small></p>
+                      <a href="news.php?news-id=<?php echo $data->id ?>" class="stretched-link"></a>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <img src="post_images/<?php echo $data->post_pic; ?>" class="img-fluid rounded h-100" alt="News Image">
+                  </div>
+                </div>
+              </div>
             </div>
-            <a href="news.php?news-id=<?php echo $data->id ?>" class="stretched-link"></a>
-          </div>
           <?php } ?>
-          
-          <div class="col-lg-3 h-100">
-            <div class="card h-100">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a longer card with supporting text below.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 h-100">
-            <div class="card mb-1 h-50" style="max-width: 540px;">
-              <div class="row g-0">
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text.</p>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <img src="..." class="img-fluid rounded-start" alt="...">
-                </div>
-              </div>
-            </div>
-            <div class="card h-50" style="max-width: 540px;">
-              <div class="row g-0">
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text.</p>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <img src="..." class="img-fluid rounded-start" alt="...">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4 mt-1">
-          <div class="col">
-            <div class="card mb-3" style="max-width: 540px;">
-              <div class="row g-0">
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <img src="..." class="img-fluid rounded-start" alt="...">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card mb-3" style="max-width: 540px;">
-              <div class="row g-0">
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <img src="..." class="img-fluid rounded-start" alt="...">
-                </div>
-              </div>
-            </div>            
-          </div>
-          <div class="col">
-            <div class="card mb-3" style="max-width: 540px;">
-              <div class="row g-0">
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <img src="..." class="img-fluid rounded-start" alt="...">
-                </div>
-              </div>
-            </div>   
-          </div>
-          <div class="col">
-            <div class="card mb-3" style="max-width: 540px;">
-              <div class="row g-0">
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <img src="..." class="img-fluid rounded-start" alt="...">
-                </div>
-              </div>
-            </div>   
-          </div>
         </div>
       </section>
       <!-- Bangladesh -->
       <section>
         <h1>Bangladesh</h1>
-        <div class="row row-cols-1 row-cols-lg-3 g-4 mt-1">
+        <div class="row row-cols-1 row-cols-lg-3 g-4">
           <div class="col">
-            <div class="card mb-3" style="max-width: 540px;">
-              <div class="row g-0">
-                <div class="col-md-4">
-                  <img src="images/New Project.jpg" class="img-fluid rounded-start" alt="...">
-                </div>
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-1 g-3">
+              <div class="col">
+                <div class="card bg-light rounded-0" style="max-width: 540px;">
+                  <div class="row g-0">
+                    <div class="col-md-4">
+                      <img src="images/business/Business_1.jpg" class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                      <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a wider card with supporting text below.</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="card mb-3" style="max-width: 540px;">
-              <div class="row g-0">
-                <div class="col-md-4">
-                  <img src="..." class="img-fluid rounded-start" alt="...">
-                </div>
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card mb-3" style="max-width: 540px;">
-              <div class="row g-0">
-                <div class="col-md-4">
-                  <img src="..." class="img-fluid rounded-start" alt="...">
-                </div>
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+              <div class="col">
+                <div class="card bg-light rounded-0" style="max-width: 540px;">
+                  <div class="row g-0">
+                    <div class="col-md-4">
+                      <img src="images/business/Business_1.jpg" class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                      <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a wider card with supporting text below.</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <div class="col">
-            <div class="card h-100">
-              <img src="images/dashboard/glob.jpg" class="card-img-top" alt="...">
+            <div class="card h-100 bg-light">
+              <img src="images/business/Business_1.jpg" class="card-img-top h-50" alt="...">
               <div class="card-body">
                 <h5 class="card-title">Card title</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias suscipit laboriosam inventore modi voluptatum incidunt dignissimos aliquam sed quo laudantium dicta aperiam, commodi labore. Suscipit laboriosam voluptates.</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional.</p>
               </div>
             </div>
           </div>
           <div class="col">
-            <div class="card mb-3" style="max-width: 540px;">
-              <div class="row g-0">
-                <div class="col-md-4">
-                  <img src="..." class="img-fluid rounded-start" alt="...">
-                </div>
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-1 g-3">
+              <div class="col">
+                <div class="card bg-light rounded-0" style="max-width: 540px;">
+                  <div class="row g-0">
+                    <div class="col-md-4">
+                      <img src="images/business/Business_1.jpg" class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                      <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a wider card with supporting text below.</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="card mb-3" style="max-width: 540px;">
-              <div class="row g-0">
-                <div class="col-md-4">
-                  <img src="..." class="img-fluid rounded-start" alt="...">
-                </div>
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card mb-3" style="max-width: 540px;">
-              <div class="row g-0">
-                <div class="col-md-4">
-                  <img src="..." class="img-fluid rounded-start" alt="...">
-                </div>
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+              <div class="col">
+                <div class="card bg-light rounded-0" style="max-width: 540px;">
+                  <div class="row g-0">
+                    <div class="col-md-4">
+                      <img src="images/business/Business_1.jpg" class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                      <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a wider card with supporting text below.</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
