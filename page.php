@@ -35,6 +35,7 @@
           $result=$db_config->query($sql);
           $data=$result->fetch_object();
         ?>
+        <a href="news.php?news-id=<?php echo $data->id ?>" class="text-decoration-none text-dark">
         <div class="position-relative image-hover img-figure">
           <img
             src="post_images/<?php echo $data->post_pic; ?>"
@@ -43,14 +44,13 @@
           />
           <span class="thumb-title">BUSINESS</span>
         </div>
-        <a href="news.php?news-id=<?php echo $data->id ?>" class="stretched-link text-decoration-none text-black">
           <h1 class="font-weight-600 mt-3">
             <?php echo $data->post_title; ?>
           </h1>
-        </a>
         <p class="fs-15 font-weight-normal">
           <?php //echo $data->post_details; ?>
         </p>
+        </a>
       </div>
 
       <div class="col-lg-6  mb-3 mb-sm-2">
@@ -61,22 +61,22 @@
             while ($data=$result->fetch_object()) { 
           ?>
           <div class="col mb-sm-2">
-            <div class="position-relative image-hover img-figure">
-              <img
-                src="post_images/<?php echo $data->post_pic; ?>"
-                class="img-fluid img-ql"
-                alt="world-news"
-              />
-              <span class="thumb-title">BUSINESS</span>
-            </div>
-            <a href="news.php?news-id=<?php echo $data->id ?>" class="stretched-link text-decoration-none text-black">
-              <h5 class="font-weight-600 mt-3">
-                <?php echo $data->post_title; ?>
-              </h5>
+            <a href="news.php?news-id=<?php echo $data->id ?>" class="text-decoration-none text-dark">
+              <div class="position-relative image-hover img-figure">
+                <img
+                  src="post_images/<?php echo $data->post_pic; ?>"
+                  class="img-fluid img-ql"
+                  alt="world-news"
+                />
+                <span class="thumb-title">BUSINESS</span>
+              </div>
+                <h5 class="font-weight-600 mt-3">
+                  <?php echo $data->post_title; ?>
+                </h5>
+              <p class="fs-15 font-weight-normal">
+                <?php //echo $data->post_details; ?>
+              </p>
             </a>
-            <p class="fs-15 font-weight-normal">
-              <?php //echo $data->post_details; ?>
-            </p>
           </div>
           <?php } ?>
         </div>
@@ -95,18 +95,18 @@
         while ($data=$result->fetch_object()) { 
       ?>
         <div class="col mb-5 mb-sm-2">
-          <div class="position-relative image-hover img-figure">
-            <img
-              src="post_images/<?php echo $data->post_pic; ?>"
-              class="img-fluid img-ql"
-              alt="world-news"
-            />
-            <span class="thumb-title">BUSINESS</span>
-          </div>
-          <a href="news.php?news-id=<?php echo $data->id ?>" class="stretched-link text-decoration-none text-black">
-            <h5 class="font-weight-600 mt-3">
-              <?php echo $data->post_title; ?>
-            </h5>
+          <a href="news.php?news-id=<?php echo $data->id ?>" class="text-decoration-none text-dark">
+            <div class="position-relative image-hover img-figure">
+              <img
+                src="post_images/<?php echo $data->post_pic; ?>"
+                class="img-fluid img-ql"
+                alt="world-news"
+              />
+              <span class="thumb-title">BUSINESS</span>
+            </div>
+              <h5 class="font-weight-600 mt-3">
+                <?php echo $data->post_title; ?>
+              </h5>
           </a>
         </div>
       <?php } ?>

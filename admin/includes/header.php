@@ -41,6 +41,11 @@
                     <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
                 </div>
             </form>
+            <div class="mx-2">
+                <a href="manage_massages.php" class="text-decoration-none text-white-50">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
             <!-- Navbar-->
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <li class="nav-item dropdown">
@@ -99,7 +104,7 @@
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseReporter" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fas fa-user-tie"></i></div>
                                 Reporters
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
@@ -119,10 +124,17 @@
                             </a>
 
                             <div class="sb-sidenav-menu-heading">Addons</div>
-                            <a class="nav-link" href="tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Tables
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsead" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fab fa-adversal"></i></div>
+                                Advertisement
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
+                            <div class="collapse" id="collapsead" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="add_ad.php">Add ad</a>
+                                    <a class="nav-link" href="manage_ad.php">Manage ad</a>
+                                </nav>
+                            </div>
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">

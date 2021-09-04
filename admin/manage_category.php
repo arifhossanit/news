@@ -61,7 +61,9 @@ $result=$db_config->query($sql);
                                             <td><?php echo $data["updated_date"]?></td>
                                             <td>
                                                 <a href="update_category.php?id=<?php echo $data['id']?>" class="me-3"><i class="fas fa-edit"></i></a>
-                                                <a href="includes/process.php?action=cat_del&id=<?php echo $data['id']?>" class="text-danger"><i class="fas fa-trash-alt"></i></a>
+                                                <a href="includes/process.php?action=cat_del&id=<?php echo $data['id']?>" class="text-danger" onclick='return confirm("Are you sure, to move in trash")'>
+                                                    <i class='fas fa-trash-alt'></i>
+                                                </a>
                                             </td>
                                         </tr>
                                         <?php } ?>
@@ -73,7 +75,7 @@ $result=$db_config->query($sql);
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                List of Trash catagory
+                                List of catagory in trash
                             </div>
                             <div class="card-body table-responsive">
                                 <table id="datatablesSimple" class="table table-bordered">
@@ -109,7 +111,7 @@ $result=$db_config->query($sql);
                                             <td>Inactive</td>
                                             <td><?php echo $data["updated_date"]?></td>
                                             <td class="text-center">
-                                                <a href="includes/process.php?action=cat_store&id=<?php echo $data['id']?>" class="text-success fs-5"><i class="fas fa-trash-restore"></i></a>
+                                                <a href="includes/process.php?action=cat_store&id=<?php echo $data['id']?>" class="text-success fs-5" onclick='return confirm("Are you sure to restore selected category?")'><i class='fas fa-trash-alt'></i>><i class="fas fa-trash-restore"></i></a>
                                             </td>
                                         </tr>
                                         <?php } ?>

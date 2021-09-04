@@ -6,6 +6,18 @@ $(function(){
     }
   );
 })
+$(function(){
+  $('.hover-light').hover(function () {
+    $(this).addClass("white-link");
+    }, function () {
+      $('.hover-light').removeClass("white-link");
+    }
+  );
+})
+
+$(document).ready(function(){
+  $('.toast').toast('show');
+});
 // When the user scrolls the page, execute myFunction
 window.onscroll = function() {myFunction()};
 

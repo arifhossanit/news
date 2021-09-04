@@ -144,7 +144,7 @@ if (isset($_POST["cat_add"])) {
             header("Location: ../add_reporter.php?alert=size");
             exit();
         }elseif(!empty($_POST['rname']) && !empty($_POST['rmail']) && !empty($_POST['rmobile'])) {
-            $sql="INSERT INTO myreporter (id,reporter_name,reporter_mail,reporter_mobile,reporter_img) VALUES ('$rid','$rname','$rmail','$rmobile','$rimg')";
+            $sql="INSERT INTO myreporter (id,reporter_name,reporter_mail,reporter_mobile,reporter_img) VALUES ('$rid','$rname','$rmail','$rmobile','$file_name')";
             $data=$db_config->query($sql);
             move_uploaded_file($file_tmp,"../../reporter_img/".$file_name);
         }
@@ -314,6 +314,74 @@ if (isset($_POST["cat_add"])) {
             exit();
         }else {
             header("Location: ../manage_posts.php?alert=fail");
+            exit();
+        }
+        
+    }
+?>
+
+<!-- Added ad in databse -->
+<?php
+    if (isset($_POST['adsubmit'])) {
+        extract($_POST);
+        $file_name = $_FILES['adpic']['name'];
+        $file_size =$_FILES['adpic']['size'];
+        $file_tmp =$_FILES['adpic']['tmp_name'];
+        $file_type=$_FILES['adpic']['type'];
+        $files=explode('.', $file_name);
+        $file_ex=end($files);
+        $file_ext=strtolower($file_ex);
+        
+        $extensions= array("gif","jpg","png");
+        
+        if(in_array($file_ext,$extensions)=== false){
+            header("Location: ../add_ad.php?alert=type");
+            exit();
+        }elseif($file_size >= 2097152){
+            header("Location: ../add_ad.php?alert=size");
+            exit();
+        }elseif(!empty($file_name) && !empty($adtitle) && !empty($adpname) && !empty($address) && !empty($phone)) {
+            $sql="INSERT INTO myad (ad_pic,ad_title,ad_provider_name,ad_provider_address,ad_provider_phone) VALUES ('$file_name','$adtitle','$adpname','$address','$phone')";
+            $data=$db_config->query($sql);
+            move_uploaded_file($file_tmp,"../../reporter_img/".$file_name);
+        }
+        if ($db_config->affected_rows) {
+            header("Location: ../add_ad.php?alert=success");
+            exit();
+        }else {
+            header("Location: ../add_ad.php?alert=fail");
+            exit();
+        }
+    }
+?>
+
+<!-- Delete ad from database -->
+<?php
+    if (!empty($_GET["action"]) && $_GET["action"]=="ad_del" && !empty($_GET["id"])) {
+        $id=$_GET["id"];
+        $sql="DELETE FROM myad WHERE id='$id'";
+        $data=$db_config->query($sql);
+        if ($db_config->affected_rows) {
+            header("Location: ../manage_ad.php?alert=success");
+            exit();
+        }else {
+            header("Location: ../manage_ad.php?alert=fail");
+            exit();
+        }
+        
+    }
+?>
+<!-- Delete user nassages & contact info from database -->
+<?php
+    if (!empty($_GET["action"]) && $_GET["action"]=="sms_del" && !empty($_GET["id"])) {
+        $id=$_GET["id"];
+        $sql="DELETE FROM mycontact WHERE id='$id'";
+        $data=$db_config->query($sql);
+        if ($db_config->affected_rows) {
+            header("Location: ../manage_massages.php?alert=success");
+            exit();
+        }else {
+            header("Location: ../manage_massages.php?alert=fail");
             exit();
         }
         
