@@ -31,7 +31,7 @@
     <div class="row">
       <div class="col-lg-6  mb-3 mb-sm-2">
         <?php
-          $sql="SELECT id, post_title, post_details, post_pic, post_date, updated_at FROM mypost WHERE cat_id=$cid ORDER BY id DESC";
+          $sql="SELECT id, post_title, post_excerpt, post_pic, post_date, updated_at FROM mypost WHERE cat_id=$cid ORDER BY id DESC";
           $result=$db_config->query($sql);
           $data=$result->fetch_object();
         ?>
@@ -48,7 +48,7 @@
             <?php echo $data->post_title; ?>
           </h1>
         <p class="fs-15 font-weight-normal">
-          <?php //echo $data->post_details; ?>
+          <?php echo substr($data-> post_excerpt,0,230).".."; ?>
         </p>
         </a>
       </div>
@@ -56,7 +56,7 @@
       <div class="col-lg-6  mb-3 mb-sm-2">
         <div class="row row-cols-1 row-cols-sm-2 g-4">
           <?php
-            $sql="SELECT id, post_title, post_details, post_pic, post_date, updated_at FROM mypost WHERE cat_id=$cid ORDER BY id DESC LIMIT 1,4";
+            $sql="SELECT id, post_title, post_excerpt, post_pic, post_date, updated_at FROM mypost WHERE cat_id=$cid ORDER BY id DESC LIMIT 1,4";
             $result=$db_config->query($sql);
             while ($data=$result->fetch_object()) { 
           ?>
@@ -74,7 +74,7 @@
                   <?php echo $data->post_title; ?>
                 </h5>
               <p class="fs-15 font-weight-normal">
-                <?php //echo $data->post_details; ?>
+                <?php //echo $data->post_excerpt; ?>
               </p>
             </a>
           </div>

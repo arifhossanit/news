@@ -343,7 +343,7 @@ if (isset($_POST["cat_add"])) {
         }elseif(!empty($file_name) && !empty($adtitle) && !empty($adpname) && !empty($address) && !empty($phone)) {
             $sql="INSERT INTO myad (ad_pic,ad_title,ad_provider_name,ad_provider_address,ad_provider_phone) VALUES ('$file_name','$adtitle','$adpname','$address','$phone')";
             $data=$db_config->query($sql);
-            move_uploaded_file($file_tmp,"../../reporter_img/".$file_name);
+            move_uploaded_file($file_tmp,"../../ad_pic/".$file_name);
         }
         if ($db_config->affected_rows) {
             header("Location: ../add_ad.php?alert=success");

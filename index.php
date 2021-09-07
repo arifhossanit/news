@@ -1,4 +1,5 @@
-<?php include_once('includes/header.php');?>
+<?php include_once('includes/header.php');
+?>
 
     <main class="container">
       <!-- carousel started -->
@@ -164,7 +165,7 @@
             </div>
           </div>
           <?php
-            $apiKey = "api key";
+            $apiKey = "abbdc193ac7c098e2f90b22a1289652f";
             $cityId = "1337179";
             $googleApiUrl = "http://api.openweathermap.org/data/2.5/weather?id=" . $cityId . "&lang=en&units=metric&APPID=" . $apiKey;
 
@@ -181,6 +182,8 @@
             curl_close($ch);
             $data = json_decode($response);
             $currentTime = time();
+
+            if (!empty($data)) {
           ?>
           <div class="col text-center shadow">
             <h2 class="my-3 border-bottom"><?php echo $data->name; ?><br> Weather Status</h2>
@@ -200,7 +203,17 @@
                 <div>Wind: <?php echo $data->wind->speed; ?> km/h</div>
             </div>
           </div>
-            
+          <?php }else{
+            $sql="SELECT ad_pic FROM myad";
+            $result=$db_config->query($sql);
+            $data=$result->fetch_object();
+            echo "<div class='col text-center'>
+            <img src='ad_pic/$data->ad_pic' alt='Advertisement' class='img-fluid w-100 h-100'>
+            </div>";
+          } 
+          
+          
+          ?>
         </div>
       </section>
 

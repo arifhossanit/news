@@ -20,21 +20,18 @@
       <nav class="topnav container">
           <div class="container">
               <div class="row py-3 d-lg-flex align-items-center d-none">
-                <div class="col-2">
+                <div class="col-3">
                   <?php
                   date_default_timezone_set("Asia/Dhaka");
-                    $mysqldate = date( 'D d M Y');
+                    $mysqldate = date( 'D, d M, Y');
                     echo $mysqldate;
                   ?>
                 </div>
-                <div class="col-1">
-                  30°C,London
-                </div>
-                <div class="col-lg-6 text-center fs-1 fw-bold">
-                  NEWS ROOM
+                <div class="col-lg-6 text-center ">
+                <a class="text-decoration-none text-dark fs-1 fw-bold" href="index.php">NEWS ROOM</a>
                 </div>
                 <div class="col-3 text-end">
-                  facebook
+                  
                 </div>
               </div>
             </div>              
@@ -46,7 +43,7 @@
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <a class="navbar-brand d-lg-none" href="#">NEWS ROOM</a>
+          <a class="navbar-brand d-lg-none" href="index.php">NEWS ROOM</a>
           <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 navbar-nav-scroll">
               <li class="nav-item">
