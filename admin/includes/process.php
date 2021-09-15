@@ -394,7 +394,7 @@ if (isset($_POST["cat_add"])) {
 
 <!-- Delete user info from database -->
 <?php
-    if (!empty($_GET["action"]) && $_GET["action"]=="u_del" && !empty($_GET["id"])) {
+    if (isset($_GET["action"]) && $_GET["action"]=="u_del" && !empty($_GET["id"])) {
         $id=$_GET["id"];
         $sql="DELETE FROM myuser WHERE id='$id'";
         $data=$db_config->query($sql);
@@ -403,6 +403,22 @@ if (isset($_POST["cat_add"])) {
             exit();
         }else {
             header("Location: ../manage_users.php?alert=fail");
+            exit();
+        }
+        
+    }
+?>
+<!-- delete comment from database -->
+<?php
+    if (isset($_GET["action"]) && $_GET["action"]=="com_del" && !empty($_GET["id"])) {
+        $id=$_GET["id"];
+        $sql="DELETE FROM mycomments WHERE id='$id'";
+        $data=$db_config->query($sql);
+        if ($db_config->affected_rows) {
+            header("Location: ../manage_comments.php?alert=success");
+            exit();
+        }else {
+            header("Location: ../manage_comments.php?alert=fail");
             exit();
         }
         

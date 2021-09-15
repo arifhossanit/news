@@ -154,6 +154,13 @@
       color: #323335;
       border: 1px solid #ced4da;;
   }
+  .overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+    opacity: .7;
+}
   .img-figure
   {
     display: block;

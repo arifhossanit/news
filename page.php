@@ -8,6 +8,7 @@
     $cresult=$db_config->query($csql);
     $cdata=$cresult->fetch_object();
     $cat_name=$cdata->cat_name;
+    $CAT_NAME=strtoupper($cat_name);
     $cat_detail=$cdata->cat_detail;
     
   }
@@ -42,7 +43,7 @@
             class="img-fluid img-ql"
             alt="News Image"
           />
-          <span class="thumb-title">BUSINESS</span>
+          <span class="thumb-title"><?php echo $CAT_NAME; ?></span>
         </div>
           <h1 class="font-weight-600 mt-3">
             <?php echo $data->post_title; ?>
@@ -68,7 +69,7 @@
                   class="img-fluid img-ql"
                   alt="world-news"
                 />
-                <span class="thumb-title">BUSINESS</span>
+                <span class="thumb-title"><?php echo $CAT_NAME; ?></span>
               </div>
                 <h5 class="font-weight-600 mt-3">
                   <?php echo $data->post_title; ?>
@@ -115,7 +116,7 @@
                 class="img-fluid img-ql"
                 alt="world-news"
               />
-              <span class="thumb-title">BUSINESS</span>
+              <span class="thumb-title"><?php echo $CAT_NAME; ?></span>
             </div>
               <h5 class="font-weight-600 mt-3">
                 <?php echo $data->post_title; ?>

@@ -18,6 +18,7 @@
                   $data=$result->fetch_object();
                 ?>
                 <div class="carousel-item active">
+                    <div class="overlay"></div>
                     <img src="post_images/<?php echo $data->post_pic; ?>" class="d-block w-100" alt="News Image">
                     <div class="carousel-caption d-none d-md-block">
                       <h4 class="fw-bold"><?php echo $data->post_title; ?></h4>
@@ -30,6 +31,7 @@
                   while ($data=$result->fetch_object()) {
                 ?>
                 <div class="carousel-item">
+                    <div class="overlay"></div>
                     <img src="post_images/<?php echo $data->post_pic; ?>" class="d-block w-100" alt="...">
                     <div class="carousel-caption d-none d-md-block">
                       <h4 class="fw-bold"><?php echo $data->post_title; ?></h4>
@@ -489,36 +491,12 @@
               </div>
             </div>
             <?php } ?>
-            <?php
-              $csql="SELECT id, cat_name FROM `mycategory` LIMIT 4,5";
-              $cresult=$db_config->query($csql);
-              $cdata=$cresult->fetch_object();
-              $cid=$cdata->id;
-              $cat_name=$cdata->cat_name;
-            ?>
+            
             <div class="row shadow">
               <div class="col-sm-12 mt-3">
                   <h3 class="section-title text-center border-bottom"><?php //echo $cat_name ?>Online Polling</h3>
               </div>
-              <?php
-                // $sql="SELECT id, post_title, post_excerpt, cat_id, post_pic, reporter_id, post_date, updated_at FROM mypost WHERE cat_id='$cid' ORDER BY id DESC LIMIT 0,6";
-                // $result=$db_config->query($sql);
-                // while ($data=$result->fetch_object()) {
-                //   $phpdate = strtotime( $data->post_date );
-                //   $mysqldate = date( 'd M Y, H:i', $phpdate );
-              ?>
               <div class="col-sm-12">
-                <!-- <a href="news.php?news-id=<?php //echo $data->id ?>" class="text-decoration-none text-dark">
-                  <div class="border-bottom pb-3">
-                    <h6 class="fw-bold mt-0 mb-0 hover-link">
-                      <?php //echo $data->post_title; ?>
-                    </h6>
-                    <p class="text-color m-0 d-flex align-items-center">
-                      <small class="far fa-bookmark pe-2"></small> 
-                      <span class="fs-10 mr-1"><?php //echo $mysqldate; ?></span>
-                    </p>
-                  </div>
-                </a> -->
                 <div style="font: 15px tahoma; padding: 10px;">
                   <div>
                       <h6 style="padding:0 0 10px 0;">Which Programming Language is best for Web Development? </div>
@@ -553,6 +531,45 @@
               <?php //} ?>
             </div>
           </div>
+        </div>
+      </section>
+      <?php
+        $csql="SELECT id, cat_name FROM `mycategory` WHERE is_active='1' LIMIT 4,5";
+        $cresult=$db_config->query($csql);
+        $cdata=$cresult->fetch_object();
+        $cid=$cdata->id;
+        $cat_name=$cdata->cat_name;
+      ?>
+      <section>
+        <div class="row mt-5">
+          <div class="col-lg-3">
+            <div class="d-flex position-relative float-left">
+              <h3 class="section-title"><?php echo $cat_name ?><span class="text-danger"> ></span></h3>
+            </div>
+          </div>
+        </div>
+        <div class="row row-cols-1 row-cols-md-4 g-1 pb-3 border-bottom">
+        <?php
+          $sql="SELECT id, post_title, post_excerpt, cat_id, post_pic, reporter_id, post_date, updated_at FROM mypost WHERE cat_id='$cid' ORDER BY id DESC LIMIT 0,4";
+          $result=$db_config->query($sql);
+          while ($data=$result->fetch_object()) {
+            $phpdate = strtotime( $data->post_date );
+            $mysqldate = date( 'd M Y, H:i', $phpdate );
+        ?>
+        
+        <div class="col">
+          <a href="news.php?news-id=<?php echo $data->id ?>" class="text-decoration-none text-dark">
+            <div class="card h-100 shadow">
+              <img src="post_images/<?php echo $data->post_pic; ?>" class="card-img-top" alt="News Image">
+              <div class="card-body">
+                <h5 class="card-title"><?php echo $data->post_title; ?></h5>
+                <p class="card-text"><?php echo substr($data->post_excerpt,0,55).'..'; ?></p>
+                <p class="card-text"><small class="text-muted"><?php echo $mysqldate; ?></small></p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <?php } ?>
         </div>
       </section>
     </main>
