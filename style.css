@@ -141,6 +141,12 @@
   /* search box customization */
   .sinput{
       position: relative;
+      padding-right: 45px;
+  }
+  @media (min-width: 978px) {
+  .foms{
+    width: 20%;
+  }
   }
   .search-btn{
       position: absolute;
@@ -250,4 +256,35 @@ span.min-temperature {
   width: 60px;
   height: 3px;
   background: #d62196;
+}
+.body_bg{
+  background-color: #e8dbd7;
+  background-image: linear-gradient(120deg, #e8dbd7 20%, #ecf5ea 55%, #dae4d8 81%); 
+}
+
+/* 404 error image style*/
+.img-error {
+  max-width: 20rem;
+}
+/* poll styling */
+.poll_yes {
+  font: 13px latoregularregular;
+  width: 80px;
+}
+
+.poll_msg {
+  color: red;
+  font: 12px tahoma,Arial,Helvetica,sans-serif;
+  padding: 0 0 10px;
+}
+
+.paddingb5 {
+  padding-bottom: 5px;
+}
+.floatL {
+  float: left;
+}
+.poll_percent {
+  font: 13px Arial,Helvetica,sans-serif;
+  width: 50px;
 }

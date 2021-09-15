@@ -135,6 +135,10 @@
                                     <a class="nav-link" href="manage_ad.php">Manage ad</a>
                                 </nav>
                             </div>
+                            <a class="nav-link" href="manage_social_link.php">
+                                <div class="sb-nav-link-icon"><i class="fab fa-adversal"></i></div>
+                                Social link
+                            </a>
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">

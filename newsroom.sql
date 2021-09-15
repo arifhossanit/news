@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 04, 2021 at 10:44 PM
+-- Generation Time: Sep 15, 2021 at 08:56 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.8
 
@@ -30,7 +30,8 @@ SET time_zone = "+00:00";
 CREATE TABLE `myad` (
   `id` int(11) NOT NULL,
   `ad_pic` varchar(250) NOT NULL,
-  `ad_title` varchar(200) DEFAULT NULL,
+  `ad_pic_oriantation` varchar(20) NOT NULL,
+  `ad_url` varchar(200) DEFAULT NULL,
   `ad_provider_name` varchar(30) NOT NULL,
   `ad_provider_address` varchar(200) NOT NULL,
   `ad_provider_phone` varchar(14) NOT NULL,
@@ -42,8 +43,13 @@ CREATE TABLE `myad` (
 -- Dumping data for table `myad`
 --
 
-INSERT INTO `myad` (`id`, `ad_pic`, `ad_title`, `ad_provider_name`, `ad_provider_address`, `ad_provider_phone`, `ad_post_date`, `ad_updated_at`) VALUES
-(1, 'burger.gif', 'Burger 20% flase sale offer', 'Md. Arif Hossan', 'Dhaka, Bangladesh', '015987566695', '2021-09-03 21:17:51', NULL);
+INSERT INTO `myad` (`id`, `ad_pic`, `ad_pic_oriantation`, `ad_url`, `ad_provider_name`, `ad_provider_address`, `ad_provider_phone`, `ad_post_date`, `ad_updated_at`) VALUES
+(1, 'burger.gif', '', 'Burger 20% flase sale offer', 'Md. Arif Hossan', 'Dhaka, Bangladesh', '015987566695', '2021-09-03 21:17:51', NULL),
+(2, 'lipton.gif', 'portrait', 'http://arifhossan.infinityfreeapp.com', 'Imran', 'Barishal', '0126995663', '2021-09-05 20:14:36', NULL),
+(4, 'noodles.gif', 'portrait', 'http://arifhossan.infinityfreeapp.com', 'arif', 'Narayanganj', '0125635546', '2021-09-12 19:41:00', NULL),
+(5, 'banner1.gif', 'landscape', 'http://arifhossan.infinityfreeapp.com', 'Arif', 'ncc', '015987566695', '2021-09-12 20:11:13', NULL),
+(6, 'BOMBAS.gif', 'landscape', 'http://arifhossan.infinityfreeapp.com', 'Arif', 'ncc', '0154542635553', '2021-09-12 20:18:43', NULL),
+(7, 'banner2.gif', 'landscape', 'http://arifhossan.infinityfreeapp.com', 'Arif', 'narayanganj', '0126995663', '2021-09-12 20:37:06', NULL);
 
 -- --------------------------------------------------------
 
@@ -109,6 +115,20 @@ CREATE TABLE `mycomments` (
   `comment_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `mycomments`
+--
+
+INSERT INTO `mycomments` (`id`, `post_id`, `user_id`, `comment`, `comment_date`) VALUES
+(1, 70, 2, 'hello', '2021-09-10 18:14:52'),
+(2, 70, 2, 'next comment', '2021-09-10 18:15:52'),
+(3, 68, 2, 'my another comment', '2021-09-10 18:17:20'),
+(4, 68, 2, 'one more time comment', '2021-09-10 18:22:37'),
+(5, 68, 2, 'my third comment', '2021-09-11 20:24:04'),
+(6, 68, 2, 'my fourth comment', '2021-09-11 20:24:21'),
+(7, 68, 2, 'my fifth comment', '2021-09-11 20:24:41'),
+(8, 68, 2, 'my six comment', '2021-09-11 20:25:39');
+
 -- --------------------------------------------------------
 
 --
@@ -130,7 +150,30 @@ CREATE TABLE `mycontact` (
 
 INSERT INTO `mycontact` (`id`, `sender_name`, `sender_email`, `message_sub`, `message`, `send_date`) VALUES
 (1, 'arif', 'abc@gmail.com', 'fgsdgf', 'dfsdf', '2021-09-04 18:25:35'),
-(2, 'fdg', 'aaa@gmail.com', 'fddsf', 'fsfsf', '2021-09-04 19:05:50');
+(2, 'fdg', 'aaa@gmail.com', 'fddsf', 'fsfsf', '2021-09-04 19:05:50'),
+(4, 'ghgfh', 'ar@gmailcom', 'fghf', 'fhfh', '2021-09-09 19:31:08');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mypoll`
+--
+
+CREATE TABLE `mypoll` (
+  `id` int(11) NOT NULL,
+  `poll_option` varchar(100) NOT NULL,
+  `poll_count` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `mypoll`
+--
+
+INSERT INTO `mypoll` (`id`, `poll_option`, `poll_count`) VALUES
+(1, 'JAVA', 10),
+(2, 'PHP', 19),
+(3, 'Asp .Net', 5),
+(4, 'Others', 3);
 
 -- --------------------------------------------------------
 
@@ -263,6 +306,33 @@ INSERT INTO `myreporter` (`id`, `reporter_name`, `reporter_mail`, `reporter_mobi
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `mysocial_link`
+--
+
+CREATE TABLE `mysocial_link` (
+  `id` int(2) NOT NULL,
+  `link_icon` varchar(20) NOT NULL,
+  `link_name` varchar(15) NOT NULL,
+  `link_url` varchar(150) NOT NULL,
+  `is_active` int(1) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `mysocial_link`
+--
+
+INSERT INTO `mysocial_link` (`id`, `link_icon`, `link_name`, `link_url`, `is_active`, `created_date`, `updated_at`) VALUES
+(1, 'fa-facebook-square', 'Facebook', 'https://www.facebook.com/arifhossanit', 1, '2021-09-13 06:30:13', '2021-09-13 16:03:17'),
+(2, 'fa-twitter-square', 'Twitter', 'https://twitter.com', 1, '2021-09-13 06:30:13', '2021-09-13 18:49:07'),
+(3, 'fa-instagram-square', 'Instagram', 'https://www.instagram.com', 1, '2021-09-13 06:33:48', '2021-09-13 18:50:00'),
+(4, 'fa-linkedin', 'Linkedin', 'https://www.linkedin.com/in/arifhossanit', 1, '2021-09-13 06:33:48', '2021-09-13 18:56:42'),
+(5, 'fa-youtube-square', 'Youtube', 'https://www.youtube.com', 1, '2021-09-13 06:33:48', '2021-09-13 18:56:57');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `myuser`
 --
 
@@ -273,6 +343,13 @@ CREATE TABLE `myuser` (
   `user_pass` varchar(80) NOT NULL,
   `created_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `myuser`
+--
+
+INSERT INTO `myuser` (`id`, `user_name`, `user_mail`, `user_pass`, `created_date`) VALUES
+(2, 'Md. Arif Hossan', 'xyz@gmail.com', '551db2b0cd87b44cf3702690805545de', '2021-09-10 15:23:18');
 
 --
 -- Indexes for dumped tables
@@ -311,6 +388,12 @@ ALTER TABLE `mycontact`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `mypoll`
+--
+ALTER TABLE `mypoll`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `mypost`
 --
 ALTER TABLE `mypost`
@@ -323,6 +406,12 @@ ALTER TABLE `myreporter`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `reporter_mail` (`reporter_mail`),
   ADD UNIQUE KEY `reporter_mobile` (`reporter_mobile`);
+
+--
+-- Indexes for table `mysocial_link`
+--
+ALTER TABLE `mysocial_link`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `myuser`
@@ -339,7 +428,7 @@ ALTER TABLE `myuser`
 -- AUTO_INCREMENT for table `myad`
 --
 ALTER TABLE `myad`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `myadmin`
@@ -357,13 +446,19 @@ ALTER TABLE `mycategory`
 -- AUTO_INCREMENT for table `mycomments`
 --
 ALTER TABLE `mycomments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `mycontact`
 --
 ALTER TABLE `mycontact`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `mypoll`
+--
+ALTER TABLE `mypoll`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `mypost`
@@ -378,10 +473,16 @@ ALTER TABLE `myreporter`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
 
 --
+-- AUTO_INCREMENT for table `mysocial_link`
+--
+ALTER TABLE `mysocial_link`
+  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `myuser`
 --
 ALTER TABLE `myuser`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

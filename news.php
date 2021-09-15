@@ -63,29 +63,47 @@ if (!empty($_GET['news-id'])) {
                 
                  
                   <div class="text-center pb-5 mb-2 border-bottom"></div>
+                    <div class="alert alert-secondary alert-dismissible d-none" id='show' role="alert">
+                      For make a comment, please <a href="sign_in.php" class="alert-link">sign-in</a> first.
+                      <button type="button" class="btn-close hide-alert"></button>
+                    </div>
                   <div class="d-flex flex-row">
-                        <img
-                        src="./images/dashboard/Profile_1.jpg"
-                        alt=""
-                        class="img-xs img-rounded me-2"
-                        />
-                    <div class="form-floating input-group">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                    <i class="far fa-user-circle fs-4 pt-3 pe-2"></i>
+                    <form class="form-floating input-group" action="includes/validation.php" method="post">
+                        <input type="hidden" name="pid" value="<?php echo $news_id; ?>">
+                        <input type="hidden" name="uid" value="<?php if(!empty($_SESSION['id'])) echo $_SESSION['id']; ?>">
+                        <textarea class="form-control" name="comment" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
                         <label for="floatingTextarea">Comments</label>
-                        <button class="input-group-text" type="submit">Post</button>
+                        <?php
+                          if (!empty($_SESSION['email'])) {
+                            echo "<input type='submit' name='ucomment' value='Post' class='input-group-text'>";
+                          }else {
+                            echo "<button type='button' id='login' class='input-group-text'>Post</button>";
+                          }
+                        ?>
+                    </form>
+                  </div>
+                  <?php
+                    $sql="SELECT `comment`, `user_name`, `comment_date` FROM mycomments, myuser WHERE post_id='$news_id' AND `user_id`= myuser.id ORDER BY mycomments.id DESC LIMIT 3";
+                    $result=$db_config->query($sql);
+                    while ($data=$result->fetch_object()) {
+                      $phpdate = strtotime( $data->comment_date );
+                      $mysqldate = date( 'd M Y, h:i A', $phpdate )
+                  ?>
+                  <div class="d-flex flex-row mt-3">
+                    <i class="far fa-user-circle fs-5 pt-1 pe-2"></i>
+                    <div class="">
+                        <h5><?php echo $data->user_name ?> <small class="text-muted" style="font-size:11px"><?php echo $mysqldate ?></small></h5>
+                        <p><?php echo $data->comment ?></p>
                     </div>
                   </div>
-                  <div class="d-flex flex-row mt-3">
-                    <img
-                    src="./images/dashboard/Profile_1.jpg"
-                    alt=""
-                    class="img-xs img-rounded me-2"
-                    />
-                    <div class="">
-                        <h5>Name <small class="text-muted fs-6">Today 2:30pm</small></h5>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    </div>
-                </div>                
+                  <?php } ?> 
+                  <div id="shows"> </div>
+                  <?php
+                  if ($result->num_rows > 0) {
+                  ?>
+                  <button type="button" id="clicks" class="btn btn-secondary ms-4" value="<?php echo $news_id; ?>">Show More</button>              
+                  <?php } ?>
                   <h1 class="font-weight-600 text-center my-5">
                     You may also like
                   </h1>

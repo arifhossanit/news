@@ -8,31 +8,17 @@
             <div class="d-flex justify-content-end footer-social align-items-center">
               <h5 class="fw-bold me-3 d-none d-lg-flex">Follow on</h5>
               <ul class="d-flex list-unstyled social">
+                <?php
+                  $sql="SELECT link_icon, link_url FROM mysocial_link WHERE is_active='1'";
+                  $result=$db_config->query($sql);
+                  while ($data=$result->fetch_object()) {
+                ?>
                 <li>
-                  <a href="#">
-                    <i class="fab fa-instagram-square"></i>
+                  <a href="<?php echo $data->link_url; ?>" target="_blank" class="me-2">
+                    <i class="fab <?php echo $data->link_icon; ?>"></i>
                   </a>
                 </li>
-                <li>
-                  <a href="#">
-                    <i class="fab fa-facebook-square"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i class="fab fa-youtube-square"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i class="fab fa-linkedin"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i class="fab fa-twitter-square"></i>
-                  </a>
-                </li>
+                <?php } ?>
               </ul>
             </div>
           </div>
@@ -59,7 +45,8 @@
         </div>
       </div>
     </footer>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
     <script src="scripts.js"></script>
 </body>

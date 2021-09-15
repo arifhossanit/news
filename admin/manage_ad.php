@@ -55,7 +55,7 @@
                                         <?php while ($data=$result->fetch_assoc()) { ?>
                                         <tr>
                                             <td><?php if (!empty($data['id'])) echo $data['id']; ?></td>
-                                            <td><?php if (!empty($data['ad_title'])) echo $data['ad_title']; ?></td>
+                                            <td><?php if (!empty($data['ad_url'])) echo $data['ad_url']; ?></td>
                                             <td><?php if (!empty($data['ad_provider_name'])) echo $data['ad_provider_name']; ?></td>
                                             <td><?php if (!empty($data['ad_provider_address'])) echo $data['ad_provider_address']; ?></td>
                                             <td><?php if (!empty($data['ad_provider_phone'])) echo $data['ad_provider_phone']; ?></td>

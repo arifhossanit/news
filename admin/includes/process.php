@@ -340,8 +340,12 @@ if (isset($_POST["cat_add"])) {
         }elseif($file_size >= 2097152){
             header("Location: ../add_ad.php?alert=size");
             exit();
-        }elseif(!empty($file_name) && !empty($adtitle) && !empty($adpname) && !empty($address) && !empty($phone)) {
-            $sql="INSERT INTO myad (ad_pic,ad_title,ad_provider_name,ad_provider_address,ad_provider_phone) VALUES ('$file_name','$adtitle','$adpname','$address','$phone')";
+        }elseif (!filter_var($adurl, FILTER_VALIDATE_URL)) {
+            header("Location: ../add_ad.php?alert=url");
+            exit();
+        }elseif(!empty($file_name) && !empty($adori) && !empty($adurl) && !empty($adpname) && !empty($address) && !empty($phone)) {
+            echo $adurl=filter($adurl);
+            $sql="INSERT INTO myad (ad_pic,ad_pic_oriantation,ad_url,ad_provider_name,ad_provider_address,ad_provider_phone) VALUES ('$file_name','$adori','$adurl','$adpname','$address','$phone')";
             $data=$db_config->query($sql);
             move_uploaded_file($file_tmp,"../../ad_pic/".$file_name);
         }
@@ -385,6 +389,60 @@ if (isset($_POST["cat_add"])) {
             exit();
         }
         
+    }
+?>
+
+<!-- Delete user info from database -->
+<?php
+    if (!empty($_GET["action"]) && $_GET["action"]=="u_del" && !empty($_GET["id"])) {
+        $id=$_GET["id"];
+        $sql="DELETE FROM myuser WHERE id='$id'";
+        $data=$db_config->query($sql);
+        if ($db_config->affected_rows) {
+            header("Location: ../manage_users.php?alert=success");
+            exit();
+        }else {
+            header("Location: ../manage_users.php?alert=fail");
+            exit();
+        }
+        
+    }
+?>
+<!-- active social site link -->
+<?php
+    if (isset($_POST["add_link"])) {
+        extract($_POST);
+        if (!filter_var($surl, FILTER_VALIDATE_URL)) {
+            header("Location: ../manage_social_link.php?alert=url");
+            exit();
+        }else {
+            $surl=filter($surl);
+            $sql="UPDATE `mysocial_link` SET link_url='$surl', is_active='1' WHERE id='$link_id'";
+            $data=$db_config->query($sql);
+        }
+        
+        if ($db_config->affected_rows) {
+            header("Location: ../manage_social_link.php?alert=success");
+            exit();
+        }else {
+            header("Location: ../manage_social_link.php?alert=fail");
+            exit();
+        }
+    }
+?>
+<!-- active social site link -->
+<?php
+    if (isset($_GET["action"]) && $_GET["action"]="del_link") {
+        $link_id=$_GET["link_id"];
+        $sql="UPDATE `mysocial_link` SET is_active='0' WHERE id='$link_id'";
+        $data=$db_config->query($sql);
+        if ($db_config->affected_rows) {
+            header("Location: ../manage_social_link.php?alert=success_del");
+            exit();
+        }else {
+            header("Location: ../manage_social_link.php?alert=fail_del");
+            exit();
+        }
     }
 ?>
 <!-- admin logout from dashboard -->

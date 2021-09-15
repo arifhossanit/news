@@ -1,5 +1,4 @@
-<?php include_once('includes/header.php');
-?>
+<?php include_once('includes/header.php');?>
 
     <main class="container">
       <!-- carousel started -->
@@ -86,6 +85,7 @@
             $mysqldate = date( 'd M Y, H:i', $phpdate );
         ?>
         <div class="col">
+        <a href="news.php?news-id=<?php echo $data->id ?>" class="text-decoration-none text-dark">
           <div class="card h-100" style="max-width: 540px;">
             <div class="row p-2">
               <div class="col-md-4 order-md-last">
@@ -99,9 +99,23 @@
               </div>
             </div>
           </div>
+        </a>
         </div>
         <?php } ?>
       </div>
+      <!--1st ads -->
+      <?php
+        $sql="SELECT ad_pic, ad_url FROM myad WHERE ad_pic_oriantation='landscape' ORDER BY id DESC";
+        $result=$db_config->query($sql);
+        if ($result->num_rows >0) {
+          $data=$result->fetch_object();
+          echo "<div class='col text-center mb-4'>
+            <a href='$data->ad_url' target='_blank'>
+              <img src='ad_pic/$data->ad_pic' alt='Advertisement' class='img-fluid w-100'>
+            </a>
+          </div>";
+        }
+      ?>
       <!-- Bangladesh News -->
       <?php
         $csql="SELECT id, cat_name FROM `mycategory` LIMIT 1";
@@ -204,11 +218,13 @@
             </div>
           </div>
           <?php }else{
-            $sql="SELECT ad_pic FROM myad";
+            $sql="SELECT ad_pic, ad_url FROM myad WHERE ad_pic_oriantation='portrait' ORDER BY id DESC LIMIT 1";
             $result=$db_config->query($sql);
             $data=$result->fetch_object();
             echo "<div class='col text-center'>
-            <img src='ad_pic/$data->ad_pic' alt='Advertisement' class='img-fluid w-100 h-100'>
+              <a href='$data->ad_url' target='_blank'>
+                <img src='ad_pic/$data->ad_pic' alt='Advertisement' class='img-fluid w-100 h-100'>
+              </a>
             </div>";
           } 
           
@@ -301,6 +317,19 @@
           <?php } ?>
         </div>
       </section>
+      <!--2nd ads -->
+      <?php
+        $sql="SELECT ad_pic, ad_url FROM myad WHERE ad_pic_oriantation='landscape' ORDER BY id DESC LIMIT 1,1";
+        $result=$db_config->query($sql);
+        if ($result->num_rows >0) {
+          $data=$result->fetch_object();
+        echo "<div class='col text-center mb-4'>
+          <a href='$data->ad_url' target='_blank'>
+            <img src='ad_pic/$data->ad_pic' alt='Advertisement' class='img-fluid w-100'>
+          </a>
+        </div>";
+        }
+      ?>
       <!-- Entertainment -->
       <?php
         $csql="SELECT id, cat_name FROM `mycategory` LIMIT 2,1";
@@ -441,16 +470,25 @@
             </div>
           </div>
           <div class="col-lg-3">
+            <?php
+            $sql="SELECT ad_pic, ad_url FROM myad WHERE ad_pic_oriantation='portrait' ORDER BY id DESC LIMIT 1,1";
+            $result=$db_config->query($sql);
+            if ($result->num_rows >0) {
+            $data=$result->fetch_object();
+            ?>
             <div class="position-relative mb-3">
-              <img
-                src="images/dashboard/star-magazine-15.jpg"
-                class="img-fluid"
-                alt="world-news"
-              />
+              <a href="<?php echo $data->ad_url ?>" target="_blank">
+                <img
+                  src="ad_pic/<?php echo $data->ad_pic ?>"
+                  class="img-fluid"
+                  alt="world-news"
+                />
+              </a>
               <div class="video-thumb text-muted">
-                <span><i class="mdi mdi-menu-right"></i></span>LIVE
+                <span><i class="mdi mdi-menu-right"></i></span>Order now!
               </div>
             </div>
+            <?php } ?>
             <?php
               $csql="SELECT id, cat_name FROM `mycategory` LIMIT 4,5";
               $cresult=$db_config->query($csql);
@@ -459,32 +497,60 @@
               $cat_name=$cdata->cat_name;
             ?>
             <div class="row shadow">
-              <div class="col-sm-12">
-                <div class="d-flex position-relative float-left">
-                  <h3 class="section-title"><?php echo $cat_name ?> Update</h3>
-                </div>
+              <div class="col-sm-12 mt-3">
+                  <h3 class="section-title text-center border-bottom"><?php //echo $cat_name ?>Online Polling</h3>
               </div>
               <?php
-                $sql="SELECT id, post_title, post_excerpt, cat_id, post_pic, reporter_id, post_date, updated_at FROM mypost WHERE cat_id='$cid' ORDER BY id DESC LIMIT 0,7";
-                $result=$db_config->query($sql);
-                while ($data=$result->fetch_object()) {
-                  $phpdate = strtotime( $data->post_date );
-                  $mysqldate = date( 'd M Y, H:i', $phpdate );
+                // $sql="SELECT id, post_title, post_excerpt, cat_id, post_pic, reporter_id, post_date, updated_at FROM mypost WHERE cat_id='$cid' ORDER BY id DESC LIMIT 0,6";
+                // $result=$db_config->query($sql);
+                // while ($data=$result->fetch_object()) {
+                //   $phpdate = strtotime( $data->post_date );
+                //   $mysqldate = date( 'd M Y, H:i', $phpdate );
               ?>
               <div class="col-sm-12">
-                <a href="news.php?news-id=<?php echo $data->id ?>" class="text-decoration-none text-dark">
+                <!-- <a href="news.php?news-id=<?php //echo $data->id ?>" class="text-decoration-none text-dark">
                   <div class="border-bottom pb-3">
                     <h6 class="fw-bold mt-0 mb-0 hover-link">
-                      <?php echo $data->post_title; ?>
+                      <?php //echo $data->post_title; ?>
                     </h6>
                     <p class="text-color m-0 d-flex align-items-center">
                       <small class="far fa-bookmark pe-2"></small> 
-                      <span class="fs-10 mr-1"><?php echo $mysqldate; ?></span>
+                      <span class="fs-10 mr-1"><?php //echo $mysqldate; ?></span>
                     </p>
                   </div>
-                </a>
+                </a> -->
+                <div style="font: 15px tahoma; padding: 10px;">
+                  <div>
+                      <h6 style="padding:0 0 10px 0;">Which Programming Language is best for Web Development? </div>
+                      <h6 id="pollDisplay">
+                          <form>
+                              <div style="padding:0 0 5px 0;">
+                              <input type="radio" name="poll_option" id="1" class="poll_sys" value="1">
+                              <label>JAVA</label>
+                              </div>
+
+                              <div style="padding:0 0 5px 0;">
+                              <input type="radio" name="poll_option" id="2" class="poll_sys" value="2">
+                              <label>PHP</label>
+                              </div>
+
+                              <div style="padding:0 0 5px 0;">
+                              <input type="radio" name="poll_option" id="3" class="poll_sys" value="3">
+                              <label>Asp .Net</label>
+                              </div>
+
+                              <div style="padding:0 0 10px 0;">
+                              <input type="radio" name="poll_option" id="4" class="poll_sys" value="4">
+                              <label>Others</label>
+                              </div>
+
+                              <input type="image" onclick="return submitPoll();" class="vote" src="images/submit.jpg" name="poll">
+                          </form>
+                      </div>
+                  </div>
+                </div>
               </div>
-              <?php } ?>
+              <?php //} ?>
             </div>
           </div>
         </div>

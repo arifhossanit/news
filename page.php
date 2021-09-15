@@ -82,6 +82,19 @@
         </div>
       </div>
     </div>
+    <!--4th ads -->
+    <?php
+        $sql="SELECT ad_pic, ad_url FROM myad WHERE ad_pic_oriantation='landscape' ORDER BY id DESC LIMIT 2,1";
+        $result=$db_config->query($sql);
+        if ($result->num_rows >0) {
+          $data=$result->fetch_object();
+        echo "<div class='col text-center mb-4'>
+          <a href='$data->ad_url' target='_blank'>
+            <img src='ad_pic/$data->ad_pic' alt='Advertisement' class='img-fluid w-100'>
+          </a>
+        </div>";
+        }
+      ?>
     <!-- Popular News -->
     <div class="row mt-3">
       <div class="col-sm-12">

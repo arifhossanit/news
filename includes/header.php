@@ -1,5 +1,6 @@
 <?php
   include_once('config.php');
+  session_start();
   $sql="SELECT id, cat_name FROM mycategory WHERE is_active='1' LIMIT 6";
   $rows=$db_config->query($sql);
 ?>
@@ -31,7 +32,27 @@
                 <a class="text-decoration-none text-dark fs-1 fw-bold" href="index.php">NEWS ROOM</a>
                 </div>
                 <div class="col-3 text-end">
-                  
+                  <?php
+                   if (!empty($_SESSION['email'])) { ?>
+                     <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                        <li class="dropdown">
+                            <a class="nav-link dropdown-toggle text-decoration-none fs-5 text-dark" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class='fas fa-user-circle'></i></a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <li class="text-center"><a class="dropdown-item" href="#!"><?php echo $_SESSION['name']; ?></a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <!-- <li><a class="dropdown-item" href="account_setting.php"><i class="fas fa-cog"></i> Account Setting</a></li> -->
+                                <li><a class="dropdown-item" href="includes/validation.php?logout=yes"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                  <?php
+                   }else {
+                     echo "<a href='sign_in.php' class='text-decoration-none text-dark'>
+                            <i class='fas fa-user-plus'></i> Sign in
+                          </a>";
+                   }  
+                  ?>
+                   
                 </div>
               </div>
             </div>              
@@ -57,9 +78,9 @@
               }
               ?>
             </ul>
-            <form class="d-flex">
-              <input class="form-control sinput" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success search-btn rounded-0 rounded-end" type="submit"><i class="fas fa-search"></i></button>
+            <form class="d-flex foms" action="search.php" method="post">
+              <input class="form-control sinput" type="search" name="search_val" placeholder="Search by title" aria-label="Search">
+              <button class="btn btn-outline-success search-btn rounded-0 rounded-end" name="search" type="submit"><i class="fas fa-search"></i></button>
             </form>
           </div>
         </div>
