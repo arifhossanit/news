@@ -461,6 +461,34 @@ if (isset($_POST["cat_add"])) {
         }
     }
 ?>
+<!-- poll question set up -->
+<?php
+    if (isset($_POST['add_poll'])) {
+        extract($_POST);
+        $ques=filter($ques);
+        $opt1=filter($opt1);
+        $opt2=filter($opt2);
+        $opt3=filter($opt3);
+        $opt4=filter($opt4);
+        if (!empty($ques)) { 
+            $sql="UPDATE `mypoll` SET poll_option='$opt1',poll_count='0', poll_ques='$ques' WHERE id='1'";
+            $data=$db_config->query($sql);
+            $sql="UPDATE `mypoll` SET poll_option='$opt2',poll_count='0' WHERE id='2'";
+            $data=$db_config->query($sql);
+            $sql="UPDATE `mypoll` SET poll_option='$opt3',poll_count='0' WHERE id='3'";
+            $data=$db_config->query($sql);
+            $sql="UPDATE `mypoll` SET poll_option='$opt4',poll_count='0' WHERE id='4'";
+            $data=$db_config->query($sql);
+        }
+        if ($db_config->affected_rows) {
+            header("Location: ../add_poll.php?alert=success");
+            exit();
+        }else {
+            header("Location: ../add_poll.php?alert=fail");
+            exit();
+        }
+    }
+?>
 <!-- admin logout from dashboard -->
 <?php
     // for user log-out

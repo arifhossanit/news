@@ -122,6 +122,10 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
                                 Users
                             </a>
+                            <a class="nav-link" href="add_poll.php">
+                                <div class="sb-nav-link-icon"><i class="fas fa-bars"></i></div>
+                                Poll
+                            </a>
 
                             <div class="sb-sidenav-menu-heading">Addons</div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsead" aria-expanded="false" aria-controls="collapseLayouts">

@@ -181,7 +181,7 @@
             </div>
           </div>
           <?php
-            $apiKey = "abbdc193ac7c098e2f90b22a1289652f";
+            $apiKey = "";
             $cityId = "1337179";
             $googleApiUrl = "http://api.openweathermap.org/data/2.5/weather?id=" . $cityId . "&lang=en&units=metric&APPID=" . $apiKey;
 
@@ -499,30 +499,24 @@
               <div class="col-sm-12">
                 <div style="font: 15px tahoma; padding: 10px;">
                   <div>
-                      <h6 style="padding:0 0 10px 0;">Which Programming Language is best for Web Development? </div>
+                    <?php
+                      $sql="SELECT id, poll_option, poll_ques FROM mypoll";
+                      $result=$db_config->query($sql);
+                      $data=$result->fetch_object();
+                    ?>
+                      <h6 style="padding:0 0 10px 0;"><?php echo $data->poll_ques; ?> </div>
                       <h6 id="pollDisplay">
                           <form>
+                            <?php
+                            $result=$db_config->query($sql);
+                              while ($data=$result->fetch_object()) {
+                            ?>
                               <div style="padding:0 0 5px 0;">
-                              <input type="radio" name="poll_option" id="1" class="poll_sys" value="1">
-                              <label>JAVA</label>
+                              <input type="radio" name="poll_option" id="<?php echo $data->id; ?>" class="poll_sys" value="<?php echo $data->id; ?>">
+                              <label><?php echo $data->poll_option; ?></label>
                               </div>
-
-                              <div style="padding:0 0 5px 0;">
-                              <input type="radio" name="poll_option" id="2" class="poll_sys" value="2">
-                              <label>PHP</label>
-                              </div>
-
-                              <div style="padding:0 0 5px 0;">
-                              <input type="radio" name="poll_option" id="3" class="poll_sys" value="3">
-                              <label>Asp .Net</label>
-                              </div>
-
-                              <div style="padding:0 0 10px 0;">
-                              <input type="radio" name="poll_option" id="4" class="poll_sys" value="4">
-                              <label>Others</label>
-                              </div>
-
-                              <input type="image" onclick="return submitPoll();" class="vote" src="images/submit.jpg" name="poll">
+                            <?php } ?>
+                              <input type="image" onclick="return submitPoll();" class="vote mt-3" src="images/submit.jpg" name="poll">
                           </form>
                       </div>
                   </div>
