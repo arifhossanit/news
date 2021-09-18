@@ -59,7 +59,7 @@
                                             <td><?php if (!empty($data['created_date'])) echo $data['created_date']; ?></td>
                                             <td>
                                                 <a href="update_reporter.php?rid=<?php echo $data['id']?>" class="me-3"><i class="fas fa-user-edit"></i></a>
-                                                <a href="includes/process.php?action=r_del&id=<?php echo $data['id']?>" class="text-danger" onclick='return confirm("Are you sure about delete?")'>
+                                                <a href="includes/process.php?action=r_del&img=<?php echo $data['reporter_img']?>&id=<?php echo $data['id']?>" class="text-danger" onclick='return confirm("Are you sure about delete?")'>
                                                     <i class='fas fa-trash-alt'></i>
                                                 </a>
                                             </td>

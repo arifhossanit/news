@@ -62,7 +62,7 @@
                                             <td><?php if (!empty($data['ad_post_date'])) echo $data['ad_post_date']; ?></td>
                                             <td>
                                                 <a href="update_ad.php?adid=<?php echo $data['id']?>" class="me-3"></a>
-                                                <a href="includes/process.php?action=ad_del&id=<?php echo $data['id']?>" class="text-danger" onclick='return confirm("Are you sure about delete?")'>
+                                                <a href="includes/process.php?action=ad_del&id=<?php echo $data['id']?>&img=<?php echo $data['ad_pic']?>" class="text-danger" onclick='return confirm("Are you sure about delete?")'>
                                                     <i class='fas fa-trash-alt'></i>
                                                 </a>
                                             </td>

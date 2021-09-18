@@ -19,7 +19,7 @@ if (!empty($_GET['news-id'])) {
   $rname=$rdata->reporter_name;
   $rimg=$rdata->reporter_img;
 
-  $csql="SELECT id, cat_name FROM mycategory WHERE id=$cat_id AND is_active=1";
+  $csql="SELECT id, cat_name FROM mycategory WHERE id=$cat_id";
   $cresult=$db_config->query($csql);
   $cdata=$cresult->fetch_object();
   $cid=$cdata->id;
@@ -43,7 +43,7 @@ if (!empty($_GET['news-id'])) {
                     class="fs-15 d-flex justify-content-center align-items-center m-0"
                   >
                     <img
-                      src="reporter_img/<?php echo $rimg ?>"
+                      src="reporter_img/<?php if(!empty($rimg)) echo $rimg ?>"
                       alt=" "
                       class="img-xs img-rounded me-2"
                     />
@@ -69,20 +69,21 @@ if (!empty($_GET['news-id'])) {
                     </div>
                   <div class="d-flex flex-row">
                     <i class="far fa-user-circle fs-4 pt-3 pe-2"></i>
-                    <form class="form-floating input-group" action="includes/validation.php" method="post">
-                        <input type="hidden" name="pid" value="<?php echo $news_id; ?>">
-                        <input type="hidden" name="uid" value="<?php if(!empty($_SESSION['id'])) echo $_SESSION['id']; ?>">
-                        <textarea class="form-control" name="comment" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                    <form class="form-floating input-group" action="" method="post">
+                        <input type="hidden" id="pid" value="<?php echo $news_id; ?>">
+                        <input type="hidden" id="uid" value="<?php if(!empty($_SESSION['id'])) echo $_SESSION['id']; ?>">
+                        <textarea class="form-control" id="comment" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
                         <label for="floatingTextarea">Comments</label>
                         <?php
                           if (!empty($_SESSION['email'])) {
-                            echo "<input type='submit' name='ucomment' value='Post' class='input-group-text'>";
+                            echo "<input type='button' value='Post' id='sendcomment' class='input-group-text'>";
                           }else {
                             echo "<button type='button' id='login' class='input-group-text'>Post</button>";
                           }
                         ?>
                     </form>
                   </div>
+                  <div id="view"> </div>
                   <?php
                     $sql="SELECT `comment`, `user_name`, `comment_date` FROM mycomments, myuser WHERE post_id='$news_id' AND `user_id`= myuser.id ORDER BY mycomments.id DESC LIMIT 3";
                     $result=$db_config->query($sql);

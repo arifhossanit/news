@@ -201,9 +201,11 @@ if (isset($_POST["cat_add"])) {
 <?php
     if (!empty($_GET["action"]) && $_GET["action"]=="r_del" && !empty($_GET["id"])) {
         $id=$_GET["id"];
+        $img=$_GET["img"];
         $sql="DELETE FROM myreporter WHERE id='$id'";
         $data=$db_config->query($sql);
         if ($db_config->affected_rows) {
+            unlink("../../reporter_img/$img");
             header("Location: ../manage_reporters.php?alert=success");
             exit();
         }else {
@@ -303,13 +305,15 @@ if (isset($_POST["cat_add"])) {
         }
     }
 ?>
-<!-- Delete reporter from database -->
+<!-- Delete news post from database -->
 <?php
     if (!empty($_GET["action"]) && $_GET["action"]=="post_del" && !empty($_GET["pid"])) {
         $id=$_GET["pid"];
+        $img=$_GET["img"];
         $sql="DELETE FROM mypost WHERE id='$id'";
         $data=$db_config->query($sql);
         if ($db_config->affected_rows) {
+            unlink("../../post_images/$img");
             header("Location: ../manage_posts.php?alert=success");
             exit();
         }else {
@@ -363,9 +367,11 @@ if (isset($_POST["cat_add"])) {
 <?php
     if (!empty($_GET["action"]) && $_GET["action"]=="ad_del" && !empty($_GET["id"])) {
         $id=$_GET["id"];
+        $img=$_GET["img"];
         $sql="DELETE FROM myad WHERE id='$id'";
         $data=$db_config->query($sql);
         if ($db_config->affected_rows) {
+            unlink("../../ad_pic/$img");
             header("Location: ../manage_ad.php?alert=success");
             exit();
         }else {

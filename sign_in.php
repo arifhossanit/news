@@ -42,15 +42,14 @@
                                     <input class="form-control" id="inputPassword" type="password" name="pass" placeholder="Password" required/>
                                     <label for="inputPassword">Password</label>
                                 </div>
-                                <div class="form-check mb-3">
-                                    <input class="form-check-input" id="inputRememberPassword" type="checkbox" value="" />
-                                    <label class="form-check-label" for="inputRememberPassword">Remember Password</label>
-                                </div>
-                                <?php 
-                                // $url= $_SERVER['HTTP_REFERER'];
-                                //     if (!empty($_SERVER['HTTP_REFERER'])) {
-                                //     echo '<input type="hidden" name="redirect" value="'.$url.'" >';
-                                //     }
+                                <?php
+                                if (!empty($_GET['redirect'])) {
+                                    $url =$_GET['redirect'];
+                                    echo '<input type="hidden" name="redirect" value="'. $url.'" >';
+                                }elseif (!empty($_SERVER['HTTP_REFERER'])) {
+                                    $url=$_SERVER['HTTP_REFERER'];
+                                    echo '<input type="hidden" name="redirect" value="'. $url.'" >';
+                                    }
                                 ?>
                                 <div class="d-flex align-items-center justify-content-center mt-4 mb-0">
                                     <!-- <a class="small" href="password.html">Forgot Password?</a> -->

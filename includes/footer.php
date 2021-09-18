@@ -32,7 +32,6 @@
             <ul class="d-lg-flex footer-horizontal-menu list-unstyled">
               <!-- modal btn -->
               <li><a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">Terms of Use.</a></li>
-              <li><a href="#">Privacy Policy.</a></li>
               <li><a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal2">AdChoices.</a></li>
               <li><a href="contact.php">Contact.</a></li>
               <li><a href="#">Sitemap.</a></li>
@@ -100,7 +99,7 @@
               <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Advertisement</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Advertisementag</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
@@ -130,7 +129,7 @@
             </div>
 
             <p class="font-weight-medium">
-              © 2021 <a href="https://www.bootstrapdash.com/" target="_blank" class="text-dark text-decoration-none">@ NEWSROOM</a>, Inc.All Rights Reserved.
+              © 2021 <a href="index.php" class="text-dark text-decoration-none">@ NEWSROOM</a>, Inc.All Rights Reserved.
             </p>
           </div>
         </div>

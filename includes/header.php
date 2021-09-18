@@ -11,7 +11,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>NEWSROOM</title>
+    <link rel="icon" type="image/png" href="./images/site_icon.png"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/4c9f93ac06.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css?v=<?php echo time();?>">
@@ -67,13 +68,15 @@
           <a class="navbar-brand d-lg-none" href="index.php">NEWS ROOM</a>
           <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 navbar-nav-scroll">
+              <?php $status =  basename($_SERVER['REQUEST_URI'])=="index.php" ? ' active': ' ';?>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="index.php">Latest</a>
+                <a class="nav-link tabs <?php echo $status ?>" aria-current="page" href="index.php">Latest</a>
               </li>
               <?php
               while ($link=$rows->fetch_object()) {
+              $status =  basename($_SERVER['REQUEST_URI'])=="page.php?cat_link=$link->id" ? ' active': ' ';
               echo"<li class='nav-item'>
-                    <a class='nav-link' href='page.php?cat_link=$link->id'>$link->cat_name</a>
+                    <a class='nav-link $status' href='page.php?cat_link=$link->id'>$link->cat_name</a>
                   </li>";
               }
               ?>
@@ -85,5 +88,6 @@
           </div>
         </div>
       </nav>
+      
     </header>
 

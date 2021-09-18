@@ -13,9 +13,10 @@
               </div>
               <div class="carousel-inner">
                 <?php
-                  $sql="SELECT id, post_title, post_details, post_pic, post_date, updated_at FROM mypost ORDER BY id DESC";
+                  $sql="SELECT mypost.id, post_title, post_details, post_pic, post_date, updated_at FROM mypost, mycategory WHERE cat_id=mycategory.id AND is_active=1 ORDER BY mypost.id DESC";
                   $result=$db_config->query($sql);
                   $data=$result->fetch_object();
+                  if (!empty($data)) {
                 ?>
                 <div class="carousel-item active">
                     <div class="overlay"></div>
@@ -26,7 +27,7 @@
                     <a href="news.php?news-id=<?php echo $data->id ?>" class="stretched-link"></a>
                 </div>
                 <?php
-                  $sql="SELECT id, post_title, post_details, post_pic, post_date, updated_at FROM mypost ORDER BY id DESC LIMIT 1,4";
+                  $sql="SELECT mypost.id, post_title, post_details, post_pic, post_date, updated_at FROM mypost, mycategory WHERE cat_id=mycategory.id AND is_active=1 ORDER BY mypost.id DESC LIMIT 1,4";
                   $result=$db_config->query($sql);
                   while ($data=$result->fetch_object()) {
                 ?>
@@ -56,7 +57,7 @@
                       <h5 class="card-title text-center border-bottom">TRANDING STORIES</h5>
                   </div>
                   <?php
-                    $sql="SELECT id, post_title, post_details, post_pic, post_date, updated_at FROM mypost ORDER BY id DESC LIMIT 5,5";
+                    $sql="SELECT mypost.id, post_title, post_details, post_pic, post_date, updated_at FROM mypost, mycategory WHERE cat_id=mycategory.id AND is_active=1 ORDER BY mypost.id DESC LIMIT 5,5";
                     $result=$db_config->query($sql);
                     while ($data=$result->fetch_object()) {
                       $phpdate = strtotime( $data->post_date );
@@ -80,7 +81,7 @@
 
       <div class="row row-cols-1 row-cols-md-4 g-2 mb-5">
         <?php
-          $sql="SELECT id, post_title, post_details, post_pic, post_date, updated_at FROM mypost ORDER BY id DESC LIMIT 10,4";
+          $sql="SELECT mypost.id, post_title, post_details, post_pic, post_date, updated_at FROM mypost, mycategory WHERE cat_id=mycategory.id AND is_active=1 ORDER BY mypost.id DESC LIMIT 10,4";
           $result=$db_config->query($sql);
           while ($data=$result->fetch_object()) {
             $phpdate = strtotime( $data->post_date );
@@ -103,8 +104,11 @@
           </div>
         </a>
         </div>
-        <?php } ?>
+        <?php } 
+        } //for ending if (!empty($data)) { line 19
+        ?>
       </div>
+
       <!--1st ads -->
       <?php
         $sql="SELECT ad_pic, ad_url FROM myad WHERE ad_pic_oriantation='landscape' ORDER BY id DESC";
@@ -118,11 +122,13 @@
           </div>";
         }
       ?>
-      <!-- Bangladesh News -->
+
+      <!--1st category news -->
       <?php
-        $csql="SELECT id, cat_name FROM `mycategory` LIMIT 1";
+        $csql="SELECT id, cat_name FROM `mycategory` WHERE is_active=1 LIMIT 1";
         $cresult=$db_config->query($csql);
         $cdata=$cresult->fetch_object();
+        if (!empty($cdata)) {
         $cid=$cdata->id;
         $cat_name=$cdata->cat_name;
       ?>
@@ -181,7 +187,7 @@
             </div>
           </div>
           <?php
-            $apiKey = "";
+            $apiKey = "abbdc193ac7c098e2f90b22a1289652f";
             $cityId = "1337179";
             $googleApiUrl = "http://api.openweathermap.org/data/2.5/weather?id=" . $cityId . "&lang=en&units=metric&APPID=" . $apiKey;
 
@@ -229,18 +235,18 @@
               </a>
             </div>";
           } 
-          
-          
           ?>
         </div>
       </section>
+      <?php } ?>
 
-      <!-- Business News -->
+      <!--2nd category news -->
       <section class="my-5">
       <?php
-        $csql="SELECT id, cat_name FROM `mycategory` LIMIT 1,1";
+        $csql="SELECT id, cat_name FROM `mycategory` WHERE is_active=1 LIMIT 1,1";
         $cresult=$db_config->query($csql);
         $cdata=$cresult->fetch_object();
+        if (!empty($cdata)) {
         $cid=$cdata->id;
         $cat_name=$cdata->cat_name;
       ?>
@@ -319,6 +325,8 @@
           <?php } ?>
         </div>
       </section>
+      <?php } ?>
+
       <!--2nd ads -->
       <?php
         $sql="SELECT ad_pic, ad_url FROM myad WHERE ad_pic_oriantation='landscape' ORDER BY id DESC LIMIT 1,1";
@@ -332,11 +340,13 @@
         </div>";
         }
       ?>
-      <!-- Entertainment -->
+
+      <!--3rd category news -->
       <?php
-        $csql="SELECT id, cat_name FROM `mycategory` LIMIT 2,1";
+        $csql="SELECT id, cat_name FROM `mycategory` WHERE is_active=1 LIMIT 2,1";
         $cresult=$db_config->query($csql);
         $cdata=$cresult->fetch_object();
+        if (!empty($cdata)) {
         $cid=$cdata->id;
         $cat_name=$cdata->cat_name;
       ?>
@@ -425,11 +435,14 @@
           </div>
         </div>
       </section>
-      <!-- International News -->
+      <?php } ?>
+
+      <!--4th category news -->
       <?php
-        $csql="SELECT id, cat_name FROM `mycategory` LIMIT 3,1";
+        $csql="SELECT id, cat_name FROM `mycategory` WHERE is_active=1 LIMIT 3,1";
         $cresult=$db_config->query($csql);
         $cdata=$cresult->fetch_object();
+        if (!empty($cdata)) {
         $cid=$cdata->id;
         $cat_name=$cdata->cat_name;
       ?>
@@ -472,7 +485,7 @@
             </div>
           </div>
           <div class="col-lg-3">
-            <?php
+            <?php //3rd ad
             $sql="SELECT ad_pic, ad_url FROM myad WHERE ad_pic_oriantation='portrait' ORDER BY id DESC LIMIT 1,1";
             $result=$db_config->query($sql);
             if ($result->num_rows >0) {
@@ -527,10 +540,14 @@
           </div>
         </div>
       </section>
+      <?php } ?>
+
+      <!--5th category news -->
       <?php
-        $csql="SELECT id, cat_name FROM `mycategory` WHERE is_active='1' LIMIT 4,5";
+        $csql="SELECT id, cat_name FROM `mycategory` WHERE is_active='1' LIMIT 4,1";
         $cresult=$db_config->query($csql);
         $cdata=$cresult->fetch_object();
+        if (!empty($cdata)) {
         $cid=$cdata->id;
         $cat_name=$cdata->cat_name;
       ?>
@@ -566,5 +583,6 @@
         <?php } ?>
         </div>
       </section>
+      <?php } ?>
     </main>
 <?php include_once('includes/footer.php');?>

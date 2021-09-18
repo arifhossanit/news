@@ -111,7 +111,7 @@ $result=$db_config->query($sql);
                                             <td>Inactive</td>
                                             <td><?php echo $data["updated_date"]?></td>
                                             <td class="text-center">
-                                                <a href="includes/process.php?action=cat_store&id=<?php echo $data['id']?>" class="text-success fs-5" onclick='return confirm("Are you sure to restore selected category?")'><i class='fas fa-trash-alt'></i>><i class="fas fa-trash-restore"></i></a>
+                                                <a href="includes/process.php?action=cat_store&id=<?php echo $data['id']?>" class="text-success fs-5" onclick='return confirm("Are you sure to restore selected category?")'><i class="fas fa-trash-restore"></i></a>
                                             </td>
                                         </tr>
                                         <?php } ?>

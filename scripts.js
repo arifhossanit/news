@@ -1,4 +1,4 @@
-// show more comment by ajax
+/*---------------- show more comment by ajax -------------*/
 $(document).ready(function () {
   var count = 0; 
     $("#clicks").click(function(){
@@ -15,7 +15,30 @@ $(document).ready(function () {
       });
   });
 });
-// user form validation for sign-up
+
+/*---------------- make comment by ajax -------------*/
+$(document).ready(function () {
+
+    $("#sendcomment").click(function(){
+      var postid =$('#pid').val();
+      var userid =$('#uid').val();
+      var comment =$('#comment').val();
+      $.ajax({
+          // you can use both post and get method in this syntax
+          method: "POST",
+          url:"includes/validation.php", 
+          data: {pid: postid, uid: userid, ucomment: comment}, 
+          success: function(result){
+          $('#comment').val('');
+          var fresult=$("#view").html(); 
+          result += fresult;
+          $("#view").html(result);
+      }
+      });
+      
+  });
+});
+/*-------------- user form validation for sign-up -------------*/
 $(document).ready(function () 
   { 
     $('#check').click(validate); 
@@ -71,7 +94,8 @@ $(document).ready(function ()
     }
   }
 );
-// hover effect on news link
+
+/* ---------------hover effect on news link--------------- */
 $(function(){
   $('.hover-link').hover(function () {
     $(this).addClass("black-link");
@@ -88,11 +112,13 @@ $(function(){
     }
   );
 })
-// bootstrap toast activation
+
+/* ------bootstrap toast activation----- */
 $(document).ready(function(){
   $('.toast').toast('show');
 });
-// showing sign-in alert if not, before comment
+
+/* ------showing sign-in alert if not, before comment----- */
 $(document).ready(function(){
   $('#login').click(function () {
     $('#show').removeClass('d-none');
@@ -102,6 +128,9 @@ $(document).ready(function(){
     $('#show').hide();
   });
 });
+
+/* ----------------sticky navber---------------- */
+
 // When the user scrolls the page, execute myFunction
 window.onscroll = function() {myFunction()};
 
@@ -122,18 +151,7 @@ function myFunction() {
   }
 }
 
-// Code for changing active link on clicking
-var btns = $("#sticky-nav .navbar-nav .nav-link");
-
-for (var i = 0; i < btns.length; i++) {
-    btns[i].addEventListener("click",function () {
-        var current = document.getElementsByClassName("active");
-        current[0].className = current[0].className.replace(" active", "");
-        this.className += " active";
-    });
-}
-
-// poll test
+/* ----------------polling system---------------- */
 function submitPoll()
 {
 

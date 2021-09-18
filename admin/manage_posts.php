@@ -1,6 +1,6 @@
 <?php include_once('includes/header.php');?>
 <?php
-    $sql="SELECT mypost.id, post_title, post_excerpt, cat_name, reporter_name, post_date FROM mypost, mycategory, myreporter WHERE cat_id=mycategory.id AND reporter_id=myreporter.id";
+    $sql="SELECT mypost.id, post_title, post_excerpt, post_pic, cat_name, reporter_name, post_date FROM mypost, mycategory, myreporter WHERE cat_id=mycategory.id AND reporter_id=myreporter.id ORDER BY mypost.id DESC";
     $result=$db_config->query($sql);
 ?>
     <main>
@@ -63,7 +63,7 @@
                                         <td>$data->post_date</td>
                                         <td>
                                             <a href='update_posts.php?id=$data->id' class='me-3'><i class='fas fa-edit'></i></a>
-                                            <a href='includes/process.php?action=post_del&pid=$data->id' class='text-danger' onclick='return confirm(\"Are you sure about delete?\")'>
+                                            <a href='includes/process.php?action=post_del&pid=$data->id&img=$data->post_pic' class='text-danger' onclick='return confirm(\"Are you sure about delete?\")'>
                                                 <i class='fas fa-trash-alt'></i>
                                             </a>
                                         </td>

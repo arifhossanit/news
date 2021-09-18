@@ -29,7 +29,7 @@
     ?>
 
 <?php
-    $expire=time()+60*60*24*30;
+    $expire=time()+60*60*24;
     setcookie("poll"."_".$setPollId, "poll"."_".$setPollId, $expire);
     echo '<div class="poll_msg">'.$msg.'</div>';
     ?>
