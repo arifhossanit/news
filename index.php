@@ -187,7 +187,8 @@
             </div>
           </div>
           <?php
-            $apiKey = "abbdc193ac7c098e2f90b22a1289652f";
+            $apiKey = "api key
+            ";
             $cityId = "1337179";
             $googleApiUrl = "http://api.openweathermap.org/data/2.5/weather?id=" . $cityId . "&lang=en&units=metric&APPID=" . $apiKey;
 
