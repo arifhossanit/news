@@ -7,7 +7,7 @@ Newsportal project divided into two modules:
 
 Setup Process:
   1. Download the zip file or colone repository
-  2. Extract the file and copy newsportal folder
+  2. Extract the file and copy newsroom folder
   3. Paste inside root directory(for xampp xam/htdocs, for wamp wamp/www, for lamp var/www/html)
   4. Open phpmyadmin (http://localhost/phpmyadmin)
   5. Create a database with name newsroom
